@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { colors } from "../theme/colors";
 
 //Essa é uma forma de criação de um componente em react native: interface é o que é/será a interface do objeto
 
@@ -20,8 +21,8 @@ export default function BotaoPadrao({
     title,
     onPress,
     disabled = false,
-    backgroundColor = '#2B9DEE',
-    textColor = '#FFFFFF'
+    backgroundColor = colors.primary,
+    textColor = colors.defaultText
 }: BotaoPadraoPropriedades) {
     return(
         <TouchableOpacity
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
-        color: '#ffffff',
+        color: colors.defaultText,
         fontWeight: 'bold'
     }  
 })

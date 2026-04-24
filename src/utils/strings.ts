@@ -1,0 +1,27 @@
+export const textos = {
+    appName: 'SempreLimpa',
+
+    telaIntrodutoria: {
+        subTitulo: 'Sempre Limpa',
+        direitos: ''  
+    },
+    descricao: {
+        inicio: 'A maneira mais fácil de lidar com sua',
+        meio: 'roupa suja!',
+        fim: 'Encontre lavanderias próximas que atendam a sua demanda! Nós buscamos, lavamos e entregamos na sua residëncia'
+    },
+    botao: {
+        entrar: 'Entrar',
+        cadastrase: 'Cadastra-se',
+        continuar: 'Continuar',
+        finalizar: 'Finalizar',
+        coleta: 'Solicitar Nova Coleta',
+        enviar: 'Enviar',
+        confirmarCesto: 'Confirmar Cesto',
+        confirmarPedido: 'Confirmar Pedido',
+        cadastrarNovoCartao: 'Cadastrar Novo Cartão',
+        adicionar: 'Adicionar',
+        pagamento: 'Já Paguei'
+    }
+
+}

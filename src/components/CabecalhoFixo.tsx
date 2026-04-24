@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, StyleSheet, ImageSourcePropType, View, Image } from "react-native";
+import { colors } from "../theme/colors";
 
 
 interface CabecalhoFixoPropiedades{
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     titulo:{
         fontSize: 36,
         fontWeight: 'bold',
-        color: '#2B9DEE'
+        color: colors.primary
     }
 })
 
