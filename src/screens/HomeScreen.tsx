@@ -1,11 +1,20 @@
-import React from "react";
-import { View, Text, StyleSheet} from "react-native";
+//Componentes
 import CabecalhoFixo from '../components/CabecalhoFixo';
 import BotaoPadrao from "../components/BotaoPadrao";
 import Background from "../components/Background";
 import Carrossel from "../components/Carrossel";
+import BottomSheetlogin from "../components/BottomSheetLogin";
+
+//UI/UX
+import React from "react";
+import { View, Text, StyleSheet} from "react-native";
 import {textos} from "../utils/strings";
 import { colors } from "../theme/colors";
+
+//Logica:
+import { useLogin } from '../hooks/useLogin'; 
+
+
 
 
 const carrosselImagens = [
@@ -15,6 +24,8 @@ const carrosselImagens = [
 ]
 
 export default function HomeScreen(){
+  const {modalVisivel, abrirModal, fecharModal, usuarioSelecionouItem} = useLogin()
+
     return (
         <Background>
             <CabecalhoFixo
@@ -38,7 +49,7 @@ export default function HomeScreen(){
                         title={textos.botao.entrar}
                         backgroundColor={colors.primary}
                         textColor={colors.defaultText}
-                        onPress={() =>{}}/>
+                        onPress={abrirModal}/>
                       
                       <BotaoPadrao
                       title={textos.botao.cadastrase}
@@ -53,7 +64,10 @@ export default function HomeScreen(){
                         </Text>
                     </View>
                 </View>
-
+            <BottomSheetlogin
+            visivel={modalVisivel}
+            aoFechar={fecharModal}
+            aoSelecionarMetodo={usuarioSelecionouItem}/>
         </Background>
     )
 }

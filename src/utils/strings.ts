@@ -8,7 +8,7 @@ export const textos = {
     descricao: {
         inicio: 'A maneira mais fácil de lidar com sua',
         meio: 'roupa suja!',
-        fim: 'Encontre lavanderias próximas que atendam a sua demanda! Nós buscamos, lavamos e entregamos na sua residëncia'
+        fim: 'Encontre lavanderias próximas que atendam a sua demanda! Nós buscamos, lavamos e entregamos na sua residência'
     },
     botao: {
         entrar: 'Entrar',
@@ -21,6 +21,27 @@ export const textos = {
         confirmarPedido: 'Confirmar Pedido',
         cadastrarNovoCartao: 'Cadastrar Novo Cartão',
         adicionar: 'Adicionar',
-        pagamento: 'Já Paguei'
+        pagamento: 'Já Paguei',
+        cpf: 'CPF',
+        email: 'E-mail'
     },
+    bottomSheet:{
+        login: 'Como deseja continuar?'
+    },
+    input:{
+        email: 'E-mail',
+        senha: 'Senha',
+        cpf: 'CPF',
+        nome: 'Nome',
+        Email: 'Email',
+        telefone: 'Telefone',
+        dataNascimento: 'Data de Nascimento',
+        sexo: 'Sexo',
+        cep: 'Cep',
+        bairro: 'Bairro',
+        rua: 'Rua',
+        estado: 'Estado',
+        numero: 'Numero',
+        complemento: 'Complemento'
+    }
 }
