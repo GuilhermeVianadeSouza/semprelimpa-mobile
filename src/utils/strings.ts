@@ -3,7 +3,7 @@ export const textos = {
 
     telaIntrodutoria: {
         subTitulo: 'Sempre Limpa',
-        direitos: ''  
+        direitos: '@2026 Sempre Limpa. Todos os direitos reservados'  
     },
     descricao: {
         inicio: 'A maneira mais fácil de lidar com sua',
@@ -22,6 +22,5 @@ export const textos = {
         cadastrarNovoCartao: 'Cadastrar Novo Cartão',
         adicionar: 'Adicionar',
         pagamento: 'Já Paguei'
-    }
-
+    },
 }

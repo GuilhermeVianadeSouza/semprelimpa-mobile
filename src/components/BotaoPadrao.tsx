@@ -12,6 +12,7 @@ interface BotaoPadraoPropriedades{
     disabled?: boolean;
     backgroundColor?: string;
     textColor?: string;
+    borderColor?: string
 }
 
 /*
@@ -22,13 +23,16 @@ export default function BotaoPadrao({
     onPress,
     disabled = false,
     backgroundColor = colors.primary,
-    textColor = colors.defaultText
+    textColor = colors.defaultText,
+    borderColor
 }: BotaoPadraoPropriedades) {
     return(
         <TouchableOpacity
         style={[
             styles.button,
             { backgroundColor: backgroundColor},
+            borderColor ? { borderWidth: 1, borderColor: borderColor} : null,
+
             disabled && styles.disabledButton
         ]}
         onPress={onPress}
