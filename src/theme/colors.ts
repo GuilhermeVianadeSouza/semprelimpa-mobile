@@ -1,0 +1,20 @@
+export const colors = {
+  primary: '#2B9DEE',      
+  secundaryColorCard: '#EDF3F8',  
+  ecologyAndEconomieColor: '#22C55E',
+  iconAndTextSelectColor: '#21A4FF',   
+  background: '#F0F4F8',   
+  optinalText: '#82C6FF',     
+  text: '#000000',         
+  textSecunday: '#7B7B7B',
+  textPayCard: '#ABABAB',
+  defaultText: '#FFFFFF',     
+  disabled: '#A0C4FF',     
+  firstColorDegrader: '#F5F7F9',
+  strokeForFilter: '#D1D5DB',
+  secundaryColorDegrader: '#CEEBFF',
+  alertColorSistem: '#FEF3C7',
+  strokeForAlert: '#FCD34D',
+  primaryColorAlertText: '#92400E',
+  secundaryColorAlertText: '#B45309'
+};
