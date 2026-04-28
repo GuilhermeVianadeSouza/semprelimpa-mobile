@@ -43,7 +43,11 @@ export const textos = {
         estado: 'Estado',
         numero: 'Numero',
         complemento: 'Complemento'
+    },
+    cardAuten:{
+        login: "Login",
+        cadastra: "Cadastre-se"
     }
 
-    
+
 }
