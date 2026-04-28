@@ -1,9 +1,9 @@
 //Componentes
-import CabecalhoFixo from '../components/CabecalhoFixo';
-import BotaoPadrao from "../components/BotaoPadrao";
-import Background from "../components/Background";
-import Carrossel from "../components/Carrossel";
-import BottomSheetlogin from "../components/BottomSheetLogin";
+import CabecalhoFixo from '../components/common/CabecalhoFixo';
+import BotaoPadrao from "../components/common/BotaoPadrao";
+import Background from "../components/common/Background";
+import Carrossel from "../components/tela-inicial/Carrossel";
+import BottomSheetlogin from "../components/tela-inicial/BottomSheetLogin";
 
 //UI/UX
 import React from "react";
@@ -23,7 +23,7 @@ const carrosselImagens = [
     {id: '3', source: require('../assets/SempreLimpaCarrosel3.png') },
 ]
 
-export default function HomeScreen(){
+export default function WelcomeScreen(){
   const {modalVisivel, abrirModal, fecharModal, usuarioSelecionouItem} = useLogin()
 
     return (

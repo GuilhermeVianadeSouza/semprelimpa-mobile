@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, Modal, TouchableOpacity, TouchableWithoutFeedback} from "react-native"
-import BotaoPadrao from "./BotaoPadrao";
-import { colors } from "../theme/colors";
-import { textos } from "../utils/strings";
+import BotaoPadrao from "../common/BotaoPadrao";
+import { colors } from "../../theme/colors";
+import { textos } from "../../utils/strings";
 
 interface BottomSheetLoginPropriedades {
     visivel: boolean,

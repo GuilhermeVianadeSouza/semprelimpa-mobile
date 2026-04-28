@@ -16,5 +16,7 @@ export const colors = {
   alertColorSistem: '#FEF3C7',
   strokeForAlert: '#FCD34D',
   primaryColorAlertText: '#92400E',
-  secundaryColorAlertText: '#B45309'
+  secundaryColorAlertText: '#B45309',
+  autenticCard: '#f1f6fa',
+  iconColorArrow: '#475569'
 };

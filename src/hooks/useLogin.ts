@@ -8,8 +8,6 @@ export function useLogin(){
 
     const usuarioSelecionouItem = (metodo: 'cpf' | 'email') => {
         setModalVisivel(false)
-
-        console.log("funfou")
     }
 
     return {
