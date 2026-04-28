@@ -6,7 +6,7 @@ export const colors = {
   background: '#F0F4F8',   
   optinalText: '#82C6FF',     
   text: '#000000',         
-  textSecunday: '#7B7B7B',
+  textSecundary: '#7B7B7B',
   textPayCard: '#ABABAB',
   defaultText: '#FFFFFF',     
   disabled: '#A0C4FF',     

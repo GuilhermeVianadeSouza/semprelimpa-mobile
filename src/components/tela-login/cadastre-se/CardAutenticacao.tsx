@@ -22,7 +22,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 24,
         alignSelf: 'center',
-        marginTop: 20
+        marginTop: 20,
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 4},
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+        elevation: 5 
     },
     headerCard: {
         flexDirection: 'row',

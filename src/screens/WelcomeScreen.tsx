@@ -117,6 +117,6 @@ const styles = StyleSheet.create({
   },
   textoRodape: {
     fontSize: 12,
-    color: colors.textSecunday, 
+    color: colors.textSecundary, 
   }
 });
