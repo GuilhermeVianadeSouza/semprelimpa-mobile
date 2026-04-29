@@ -1,19 +1,43 @@
 import { useState } from "react"; 
 
-export function useLogin(){
-    const [modalVisivel, setModalVisivel] = useState(false)
+export function useLogin(metodoInicial: 'cpf' | 'email'){
 
-    const abrirModal = () => setModalVisivel(true)
-    const fecharModal = () => setModalVisivel(false)
+    const [metodoEscolhido, setMetodoEscolhido] = useState<'cpf' | 'email'>(metodoInicial)
+    const [identificacao, setIdentificacao] = useState('')
+    const [identificacaoPuro, setIdentificacaoPuro] = useState('')
+    const [senha, setSenha] = useState('')
 
-    const usuarioSelecionouItem = (metodo: 'cpf' | 'email') => {
-        setModalVisivel(false)
-    }
+    //Lógica dinamica para a UI
+    const labelDinamico = metodoEscolhido === 'cpf' ? 'Seu CPF' : 'Seu E-mail'
+    const placeholderDinamico = metodoEscolhido === 'cpf' ? 'CPF: 000.000.000-00' : 'exemplo@email.com'
+
+    //acoes formulario
+    const lidarComVoltar = () =>{
+            console.log("Está tentando retornar")
+        }
+    
+        const lidarComLogin = () => {
+            console.log(`Tentativa de Login via ${metodoEscolhido}:`);
+            console.log({documento: identificacaoPuro, senha})
+        }
 
     return {
-        modalVisivel,
-        abrirModal,
-        fecharModal,
-        usuarioSelecionouItem
+        form: {
+            metodoEscolhido,
+            identificacao,
+            identificacaoPuro,
+            senha,
+            labelDinamico,
+            placeholderDinamico,
+            setIdentificacao,
+            setIdentificacaoPuro,
+            setSenha
+        },
+        acoes: {
+            lidarComVoltar,
+            lidarComLogin
+        }
     }
 }
+
+

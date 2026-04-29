@@ -12,7 +12,25 @@ interface CardAutenticacaoPropriedades {
 
 export default function CardAutenticacao({titulo, onBack, children}: CardAutenticacaoPropriedades){
     const {width, height} = useWindowDimensions()
+    return (
+        <View style={[styles.container,{width: width * 0.8, height: height * 0.75}]}>
 
+            <View style={styles.headerCard}>
+                <TouchableOpacity onPress={onBack} style={styles.botaoVoltar}>
+                    <Image
+                    source={require('../../../assets/Icon.png')}
+                    style= {styles.iconeFlecha}
+                    resizeMode="contain"/>
+                </TouchableOpacity>
+
+                <Text style={styles.titulo}>{titulo}</Text>
+            </View>
+
+            <View style={styles.conteudo}>
+                {children}
+            </View>
+        </View>
+    )
 
 }
 

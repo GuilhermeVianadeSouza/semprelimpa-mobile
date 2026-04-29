@@ -1,11 +1,11 @@
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import HomeScreen from "./src/screens/WelcomeScreen";
+import Routes from "./src/routes";
 
 export default function App(){
-    return (
+    return(
         <SafeAreaProvider>
-            <HomeScreen/>
+            <Routes/>
         </SafeAreaProvider>
     )
 }

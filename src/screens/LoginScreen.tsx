@@ -1,30 +1,21 @@
 import React, { useState } from "react";
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-
 import Background from "../components/common/Background";
 import CabecalhoFixo from "../components/common/CabecalhoFixo";
 import CardAutenticacao from "../components/tela-login/cadastre-se/CardAutenticacao";
-import inputMascarado from "../components/common/inputMascarado";
+import InputMascarado from "../components/common/inputMascarado";
 import BotaoPadrao from "../components/common/BotaoPadrao";
 
+import { useLogin } from "../hooks/useLogin";
 import { textos } from "../utils/strings";
 import { colors } from "../theme/colors";
+import { useRoute } from "@react-navigation/native";
 
 export default function LoginScreen(){
-    const [cpfVisual, setCpfVisual] = useState('')
-    const [cpfPuro, setCpfPuro] = useState('')
-    const [senha, setSenha] = useState('')
+    const route = useRoute<any>()
 
-    const lidarComVoltar = () =>{
-        console.log("Está tentando retornar")
-    }
-
-    const lidarComLogin = () => {
-        console.log("Tentativa de Login:");
-        console.log("CPF Puro enviado para API:", cpfPuro);
-        console.log("Senha enviada:", senha);
-    }
-
+    const metodoRecebido = route.params?.metodoSelecionado || 'email'
+    const { form, acoes} = useLogin(metodoRecebido)
     return (
         <Background>
             <CabecalhoFixo
@@ -34,9 +25,38 @@ export default function LoginScreen(){
 
             <CardAutenticacao
             titulo={textos.cardAuten.login}
-            onBack = {lidarComVoltar}>
+            onBack = {acoes.lidarComVoltar}>
                 <View style={styles.formConteudo}>
-                    
+
+                    <InputMascarado
+                    label= {form.labelDinamico}
+                    placeholder={form.placeholderDinamico}
+                    valor={form.identificacao}
+                    tipo={form.metodoEscolhido}
+                    aoMudarTexto={(mascarado, puro) =>{
+                        form.setIdentificacao(mascarado),
+                        form.setIdentificacaoPuro(puro)
+                    }}
+                    />
+
+                    <InputMascarado
+                    label="Sua Senha"
+                    placeholder="......."
+                    valor={form.senha}
+                    tipo="senha"
+                    aoMudarTexto={(texto) => form.setSenha(texto)}
+                    />
+                    <TouchableOpacity style={styles.esqueciSenha}>
+                        <Text style={styles.textoEsqueciSenha}>Esqueci minha senha</Text>
+                    </TouchableOpacity>
+
+                    <View style={{ flex: 1 }} />
+
+                    <BotaoPadrao 
+                        title="Continuar" 
+                        onPress={acoes.lidarComLogin} 
+                    />
+
                 </View>
             </CardAutenticacao>
         </Background>

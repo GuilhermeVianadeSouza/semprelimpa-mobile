@@ -11,8 +11,9 @@ import { View, Text, StyleSheet} from "react-native";
 import {textos} from "../utils/strings";
 import { colors } from "../theme/colors";
 
-//Logica:
-import { useLogin } from '../hooks/useLogin'; 
+//Logica: 
+import { selectUseLogin } from '../hooks/useWelcome';
+import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -24,7 +25,11 @@ const carrosselImagens = [
 ]
 
 export default function WelcomeScreen(){
-  const {modalVisivel, abrirModal, fecharModal, usuarioSelecionouItem} = useLogin()
+  const navigation = useNavigation<any>()
+
+  const {modalVisivel, abrirModal, fecharModal, usuarioSelecionouItem} = selectUseLogin()
+
+  
 
     return (
         <Background>
