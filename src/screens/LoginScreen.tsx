@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Background from "../components/common/Background";
 import CabecalhoFixo from "../components/common/CabecalhoFixo";
 import CardAutenticacao from "../components/tela-login/cadastre-se/CardAutenticacao";
 import InputMascarado from "../components/common/inputMascarado";
 import BotaoPadrao from "../components/common/BotaoPadrao";
-
+import { mensagensDeERRO } from "../utils/erros";
 import { useLogin } from "../hooks/useLogin";
 import { textos } from "../utils/strings";
 import { colors } from "../theme/colors";
@@ -27,6 +27,9 @@ export default function LoginScreen(){
             titulo={textos.cardAuten.login}
             onBack = {acoes.lidarComVoltar}>
                 <View style={styles.formConteudo}>
+                    <Text style={styles.textoEsqueciSenha}>
+                        Insira o seu {metodoRecebido} e senha cadastrados para acessar sua conta
+                    </Text>
 
                     <InputMascarado
                     label= {form.labelDinamico}
@@ -51,7 +54,12 @@ export default function LoginScreen(){
                     </TouchableOpacity>
 
                     <View style={{ flex: 1 }} />
-
+                    
+                    {form.mensagemErro &&(
+                        <View style={styles.caixaErro}>
+                            <Text style={styles.textoErro}>{form.mensagemErro}</Text>
+                        </View>
+                    )}
                     <BotaoPadrao 
                         title="Continuar" 
                         onPress={acoes.lidarComLogin} 
@@ -76,5 +84,19 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: colors.primary,
         fontWeight: '600'
-    }
+    },
+    caixaErro: {
+    backgroundColor: '#FFEBEE', // Fundo vermelho bem clarinho
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16, // Espaço entre a caixa de erro e o botão Continuar
+    borderWidth: 1,
+    borderColor: '#FFCDD2',
+  },
+  textoErro: {
+    color: '#D32F2F', // Vermelho escuro para contraste e leitura
+    fontSize: 14,
+    textAlign: 'center',
+    fontWeight: '500',
+  }
 })

@@ -13,10 +13,6 @@ import { colors } from "../theme/colors";
 
 //Logica: 
 import { selectUseLogin } from '../hooks/useWelcome';
-import { useNavigation } from '@react-navigation/native';
-
-
-
 
 const carrosselImagens = [
     {id: '1', source: require('../assets/SempreLimpaCarrosel1.png') },
@@ -25,11 +21,10 @@ const carrosselImagens = [
 ]
 
 export default function WelcomeScreen(){
-  const navigation = useNavigation<any>()
 
   const {modalVisivel, abrirModal, fecharModal, usuarioSelecionouItem} = selectUseLogin()
 
-  
+
 
     return (
         <Background>
