@@ -81,20 +81,21 @@ const styles = StyleSheet.create({
         paddingVertical: 10
     },
     textoEsqueciSenha: {
+        marginBottom: 10,
         fontSize: 14,
-        color: colors.primary,
+        color: colors.textSecundary,
         fontWeight: '600'
     },
     caixaErro: {
-    backgroundColor: '#FFEBEE', // Fundo vermelho bem clarinho
+    backgroundColor: colors.alertColorSistem,
     padding: 12,
     borderRadius: 8,
-    marginBottom: 16, // Espaço entre a caixa de erro e o botão Continuar
+    marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#FFCDD2',
+    borderColor: colors.strokeForAlert,
   },
   textoErro: {
-    color: '#D32F2F', // Vermelho escuro para contraste e leitura
+    color: colors.primaryColorAlertText,
     fontSize: 14,
     textAlign: 'center',
     fontWeight: '500',
