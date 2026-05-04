@@ -11,5 +11,11 @@ export const mensagensDeERRO = {
         credenciaisInvalidas: "CPF/E-mail ou senha incorretos. Tente novamente.",
         usuarioBloqueado: "Sua conta foi temporariamente bloqueada por segurança.",
         timeout: "O servidor demorou muito para responder."
+    },
+
+    preencherCampo: {
+        nome: "O nome deve ter no minimo 3 caracteres e não pode ultrapassar 100 caracteres.",
+        telefone: "Telefone inválido",
+        idade: "Você precisa ter pelo menos 18 anos para se cadastrar na aplicação"
     }
 }
