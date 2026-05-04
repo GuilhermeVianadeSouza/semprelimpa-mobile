@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { mensagensDeERRO } from "../utils/erros";
-import { validarEmail, validarMaiorIdade, validarSenha } from "../utils/validacoes";
+import { validarEmail, validarMaiorIdade, validarSenha, validarTelefone } from "../utils/validacoes";
 
 export function useCadastro(){
 
@@ -30,18 +30,22 @@ export function useCadastro(){
         setMensagemErro(null)
 
         if (etapaAtual === 1) {
-            if(nome.trim().length < 3  || nome.trim().length > 100) return setMensagemErro
+            if(nome.trim().length < 3  || nome.trim().length > 100) return setMensagemErro(mensagensDeERRO.preencherCampo.nome)
+            if(!validarEmail(email)) return setMensagemErro(mensagensDeERRO.validacao.emailInvalido)
+            if(cpf.length !== 11) return setMensagemErro(mensagensDeERRO.validacao.cpfIncompleto)
+            if(!validarTelefone(telefone)) return setMensagemErro
+            if(!validarMaiorIdade(dataNascimento)) return setMensagemErro(mensagensDeERRO.preencherCampo.idade)
+            setEtapaAtual(2)
+        }
+        if (etapaAtual === 2) {
+            ifce
         }
     }
 
+    return {
+        form:{
 
-
-
-
-
-
-
-
-
-
+        },
+        acoes: {avancarEtapa}
+    }
 }

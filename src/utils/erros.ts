@@ -15,7 +15,11 @@ export const mensagensDeERRO = {
 
     preencherCampo: {
         nome: "O nome deve ter no minimo 3 caracteres e não pode ultrapassar 100 caracteres.",
-        telefone: "Telefone inválido",
-        idade: "Você precisa ter pelo menos 18 anos para se cadastrar na aplicação"
+        telefone: "Telefone inválido, insirá um telefone válido",
+        idade: "Você precisa ter pelo menos 18 anos para se cadastrar na aplicação",
+        cep: "Insira um CEP valido.",
+        rua: "O campo rua é obrigatório, insira o nome da rua.",
+        bairro: "O campo bairro é obrigatório, insira o nome do bairro",
+        numero: "O numero da residência é obrigatório, insira o numero",
     }
 }

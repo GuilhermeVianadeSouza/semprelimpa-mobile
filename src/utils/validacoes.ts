@@ -22,3 +22,21 @@ export const validarMaiorIdade = (dataString: string): boolean => {
 
     return idade >= 18
 } 
+
+export const validarTelefone = (telefoneStr: string): boolean => {
+    const apenasNumeros = telefoneStr.replace(/\D/g,'')
+
+    if (apenasNumeros.length !== 10 && apenasNumeros.length !== 11){
+        return false
+    }
+
+    if (/^(\d)\1+$/.test(apenasNumeros)){
+        return false
+    }
+
+    if (apenasNumeros.length === 11 && apenasNumeros.charAt(2) !== '9'){
+        return false
+    }
+
+    return true
+}
