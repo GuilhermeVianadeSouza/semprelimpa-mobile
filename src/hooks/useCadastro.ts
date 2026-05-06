@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { mensagensDeERRO } from "../utils/erros";
-import { validarCpf, validarEmail, validarMaiorIdade, validarSenha, validarTelefone } from "../utils/validacoes";
+import { validarCep, validarCpf, validarEmail, validarMaiorIdade, validarSenha, validarTelefone } from "../utils/validacoes";
 
 export function useCadastro(){
 
@@ -37,15 +37,44 @@ export function useCadastro(){
             if(!validarMaiorIdade(dataNascimento)) return setMensagemErro(mensagensDeERRO.preencherCampo.idade)
             setEtapaAtual(2)
         }
-        if (etapaAtual === 2) {
-            if(cep) return setMensagemErro(mensagensDeERRO.preencherCampo.cep)
+        else if (etapaAtual === 2) {
+            if(!validarCep(cep)) return setMensagemErro(mensagensDeERRO.preencherCampo.cep)
+            if(rua.trim() === '') return setMensagemErro(mensagensDeERRO.preencherCampo.rua)
+            if(numero.trim() === '') return setMensagemErro(mensagensDeERRO.preencherCampo.numero)
+            if(bairro.trim() === '') return setMensagemErro(mensagensDeERRO.preencherCampo.bairro)
+            
+            setEtapaAtual(3)
+        }
+    }
+
+    const finalizarCadastro = () => {
+        setMensagemErro(null)
+
+        if(!validarSenha(senha)) return setMensagemErro (mensagensDeERRO.validacao.senhaFraca)
+        if(senha !== confirmarSenha) return setMensagemErro (mensagensDeERRO.validacao.senhasDiferentes)
+
+            console.log("Dados para a API:", {
+                nome, email, telefone, cpf, dataNascimento,
+                endereco: { cep, rua, numero, complemento, bairro, cidade, estado},
+                senha, fotoUri
+            })
+    }
+
+    const voltarEtapa = () => {
+        setMensagemErro(null)
+        if (etapaAtual > 1) {
+            setEtapaAtual((prev) => (prev - 1) as 1| 2 | 3)
         }
     }
 
     return {
         form:{
-
+            etapaAtual, mensagemErro, nome, email, telefone, cpf, dataNascimento,
+            setNome, setEmail, setTelefone, setCpf, setDataNascimento,
+            cep, rua, numero, complemento, bairro, cidade, estado, buscarCep,
+            setCep, setRua, setNumero, setComplemento, setBairro, setCidade, setEstado,
+            senha, confirmarSenha, fotoUri, setSenha, setConfirmarSenha, setFotoUri
         },
-        acoes: {avancarEtapa}
+        acoes: {avancarEtapa, voltarEtapa, finalizarCadastro}
     }
 }

@@ -69,3 +69,8 @@ export const validarCpf = (cpfStr: string): boolean => {
 
     return true
 }
+
+export const validarCep = (cepStr: string): boolean => {
+    const apenasNumeros = cepStr.replace(/\D/g, '')
+    return apenasNumeros.length ===8
+}
