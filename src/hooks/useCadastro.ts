@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { buscarCepViaCep } from "../services/viaCepService"; 
 import { mensagensDeERRO } from "../utils/erros";
-import { validarCep, validarCpf, validarEmail, validarMaiorIdade, validarSenha, validarTelefone } from "../utils/validacoes";
+import { apenasNumeros, validarCep, validarCpf, validarEmail, validarMaiorIdade, validarSenha, validarTelefone } from "../utils/validacoes";
 
 export function useCadastro(){
 
@@ -67,6 +68,30 @@ export function useCadastro(){
         }
     }
 
+    const atualizarCep = async (cepDigitado: string) => {
+        setCep(cepDigitado)
+
+        const cepApenasNumeros = apenasNumeros(cepDigitado)
+
+        if(cepApenasNumeros.length === 8) {
+            setBuscarCep(true)
+            setMensagemErro(null)
+
+            const endereco = await buscarCepViaCep(cepApenasNumeros)
+
+            if(endereco){
+                setRua(endereco.logradouro)
+                setBairro(endereco.bairro)
+                setCidade(endereco.localidade)
+                setEstado(endereco.uf)
+            } else {
+                setMensagemErro(mensagensDeERRO.preencherCampo.cep)
+            }
+
+            setBuscarCep(false)
+        }
+    }
+
     return {
         form:{
             etapaAtual, mensagemErro, nome, email, telefone, cpf, dataNascimento,
@@ -75,6 +100,6 @@ export function useCadastro(){
             setCep, setRua, setNumero, setComplemento, setBairro, setCidade, setEstado,
             senha, confirmarSenha, fotoUri, setSenha, setConfirmarSenha, setFotoUri
         },
-        acoes: {avancarEtapa, voltarEtapa, finalizarCadastro}
+        acoes: {avancarEtapa, voltarEtapa, finalizarCadastro, atualizarCep}
     }
 }

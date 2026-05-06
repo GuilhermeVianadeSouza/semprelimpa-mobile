@@ -1,7 +1,7 @@
 export const mensagensDeERRO = {
     validacao: {
         emailInvalido: "Por favor, insira um endereço de e-mail válido.",
-        cpfIncompleto: "O CPF deve conter exatamente 11 dígitos.",
+        cpfInvalido: "O CPF deve ser um CPF válido",
         senhaFraca: "A senha deve conter: 8 a 12 caracteres, incluindo uma letra maiúscula, um número e um caractere especial.",
         campoObrigatorio: "Este campo não pode ficar vazio.",
         senhasDiferentes: "As senhas não se condizem, verificar erros de digitação."

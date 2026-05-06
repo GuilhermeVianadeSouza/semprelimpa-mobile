@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { mensagensDeERRO } from "../utils/erros";
+import { validarEmail, validarSenha } from "../utils/validacoes";
 import { useState } from "react"; 
 
 export function useLogin(metodoInicial: 'cpf' | 'email'){
@@ -16,17 +17,6 @@ export function useLogin(metodoInicial: 'cpf' | 'email'){
     //Lógica dinamica para a UI
     const labelDinamico = metodoEscolhido === 'cpf' ? 'Seu CPF' : 'Seu E-mail'
     const placeholderDinamico = metodoEscolhido === 'cpf' ? 'CPF: 000.000.000-00' : 'exemplo@email.com'
-
-    //Validações informacoes
-    const validarEmail = (email: string) => {
-        const regex = /[^\s@]+@[^\s@]+\.[^\s@]+$/
-        return regex.test(email)
-    }
-
-    const validarSenha= (senha: string) => {
-        const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).{8,12}$/
-        return regex.test(senha)
-    }
 
     //acoes formulario
     const lidarComVoltar = () =>{
