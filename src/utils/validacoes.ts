@@ -24,17 +24,17 @@ export const validarMaiorIdade = (dataString: string): boolean => {
 } 
 
 export const validarTelefone = (telefoneStr: string): boolean => {
-    const apenasNumeros = telefoneStr.replace(/\D/g,'')
+    const telefoneConfigurado = apenasNumeros(telefoneStr)
 
-    if (apenasNumeros.length !== 10 && apenasNumeros.length !== 11){
+    if (telefoneConfigurado.length !== 10 && telefoneConfigurado.length !== 11){
         return false
     }
 
-    if (/^(\d)\1+$/.test(apenasNumeros)){
+    if (/^(\d)\1+$/.test(telefoneConfigurado)){
         return false
     }
 
-    if (apenasNumeros.length === 11 && apenasNumeros.charAt(2) !== '9'){
+    if (telefoneConfigurado.length === 11 && telefoneConfigurado.charAt(2) !== '9'){
         return false
     }
 
@@ -42,7 +42,7 @@ export const validarTelefone = (telefoneStr: string): boolean => {
 }
 
 export const validarCpf = (cpfStr: string): boolean => {
-    const cpf = cpfStr.replace(/\D/g, '')
+    const cpf = apenasNumeros(cpfStr)
 
     if (cpf.length !== 11) return false
 
@@ -56,7 +56,7 @@ export const validarCpf = (cpfStr: string): boolean => {
     }
     resto = (soma * 10) % 11
     if (resto === 10 || resto === 11) resto = 0
-    if (resto !== parseInt(cpf.substring(10,11))) return false
+    if (resto !== parseInt(cpf.substring(9,10))) return false
     
     soma = 0
 
@@ -71,6 +71,9 @@ export const validarCpf = (cpfStr: string): boolean => {
 }
 
 export const validarCep = (cepStr: string): boolean => {
-    const apenasNumeros = cepStr.replace(/\D/g, '')
-    return apenasNumeros.length ===8
+    return apenasNumeros(cepStr).length === 8
+}
+
+export const apenasNumeros = (texto: string): string => {
+    return texto.replace(/\D/g, '')
 }
