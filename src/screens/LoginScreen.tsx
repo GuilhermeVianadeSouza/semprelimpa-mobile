@@ -5,17 +5,25 @@ import CabecalhoFixo from "../components/common/CabecalhoFixo";
 import CardAutenticacao from "../components/tela-login/cadastre-se/CardAutenticacao";
 import InputMascarado from "../components/common/inputMascarado";
 import BotaoPadrao from "../components/common/BotaoPadrao";
-import { mensagensDeERRO } from "../utils/erros";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useLogin } from "../hooks/useLogin";
 import { textos } from "../utils/strings";
 import { colors } from "../theme/colors";
-import { useRoute } from "@react-navigation/native";
 
 export default function LoginScreen(){
     const route = useRoute<any>()
+    const navigation = useNavigation<any>()
 
     const metodoRecebido = route.params?.metodoSelecionado || 'email'
-    const { form, acoes} = useLogin(metodoRecebido)
+    const aoLogarComSucesso = () => {
+        navigation.navigate('Home')
+    }
+
+    const lidarComBotaoVoltar = () => {
+        navigation.goBack()
+    }
+
+    const { form, acoes} = useLogin(metodoRecebido, aoLogarComSucesso)
     return (
         <Background>
             <CabecalhoFixo
@@ -25,7 +33,7 @@ export default function LoginScreen(){
 
             <CardAutenticacao
             titulo={textos.cardAuten.login}
-            onBack = {acoes.lidarComVoltar}>
+            onBack = {lidarComBotaoVoltar}>
                 <View style={styles.formConteudo}>
                     <Text style={styles.textoEsqueciSenha}>
                         Insira o seu {metodoRecebido} e senha cadastrados para acessar sua conta

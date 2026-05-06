@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import { mensagensDeERRO } from "../utils/erros";
-import { validarEmail, validarSenha } from "../utils/validacoes";
+import { validarEmail, validarSenha, validarCpf } from "../utils/validacoes";
 import { useState } from "react"; 
 
-export function useLogin(metodoInicial: 'cpf' | 'email'){
+export function useLogin(metodoInicial: 'cpf' | 'email', aoSucesso: () => void){
     //Responsavel pela navegação entre páginas
     const navigation = useNavigation<any>()
 
@@ -18,10 +18,6 @@ export function useLogin(metodoInicial: 'cpf' | 'email'){
     const labelDinamico = metodoEscolhido === 'cpf' ? 'Seu CPF' : 'Seu E-mail'
     const placeholderDinamico = metodoEscolhido === 'cpf' ? 'CPF: 000.000.000-00' : 'exemplo@email.com'
 
-    //acoes formulario
-    const lidarComVoltar = () =>{
-            navigation.goBack()
-        }
     
     const lidarComLogin = () => {
         setMensagemErro(null)
@@ -32,8 +28,8 @@ export function useLogin(metodoInicial: 'cpf' | 'email'){
                 return
             }
            } else {
-            if(identificacaoPuro.length !== 11){
-                setMensagemErro (mensagensDeERRO.validacao.cpfIncompleto)
+            if(!validarCpf(identificacaoPuro)){
+                setMensagemErro (mensagensDeERRO.validacao.cpfInvalido)
                 return
             }
            }
@@ -44,6 +40,8 @@ export function useLogin(metodoInicial: 'cpf' | 'email'){
            }
 
            console.log("Sucesso! Dados prontos para continuar: ", {identificacaoPuro, senha})
+
+           aoSucesso()
         }
 
     return {
@@ -60,7 +58,6 @@ export function useLogin(metodoInicial: 'cpf' | 'email'){
             setSenha
         },
         acoes: {
-            lidarComVoltar,
             lidarComLogin
         }
     }

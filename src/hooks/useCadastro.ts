@@ -2,9 +2,10 @@ import { useState } from "react";
 import { buscarCepViaCep } from "../services/viaCepService"; 
 import { mensagensDeERRO } from "../utils/erros";
 import { apenasNumeros, validarCep, validarCpf, validarEmail, validarMaiorIdade, validarSenha, validarTelefone } from "../utils/validacoes";
+import { useNavigation } from "@react-navigation/native";
 
 export function useCadastro(){
-
+    const navigation = useNavigation<any>
     const [etapaAtual, setEtapaAtual] = useState<1 | 2 | 3>(1) 
     const [mensagemErro, setMensagemErro] = useState<string | null>(null)
 
@@ -33,7 +34,7 @@ export function useCadastro(){
         if (etapaAtual === 1) {
             if(nome.trim().length < 3  || nome.trim().length > 100) return setMensagemErro(mensagensDeERRO.preencherCampo.nome)
             if(!validarEmail(email)) return setMensagemErro(mensagensDeERRO.validacao.emailInvalido)
-            if(!validarCpf(cpf)) return setMensagemErro(mensagensDeERRO.validacao.cpfIncompleto)
+            if(!validarCpf(cpf)) return setMensagemErro(mensagensDeERRO.validacao.cpfInvalido)
             if(!validarTelefone(telefone)) return setMensagemErro
             if(!validarMaiorIdade(dataNascimento)) return setMensagemErro(mensagensDeERRO.preencherCampo.idade)
             setEtapaAtual(2)

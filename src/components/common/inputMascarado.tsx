@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import MaskInput, {Masks} from "react-native-mask-input";
+import { MASCARA_CEP } from "../../utils/formatadores";
 import { MaterialCommunityIcons} from '@expo/vector-icons';
 import { colors } from "../../theme/colors";
 
@@ -9,28 +10,33 @@ interface InputMascaradoPropriedades{
     placeholder?: string
     valor: string
     aoMudarTexto: (mascarado: string, puro: string) => void
-    tipo: 'cpf' | 'email' | 'senha'
+    tipo: 'cpf' | 'email' | 'senha' | 'telefone' | 'cep' | 'data' | 'texto'
+    editavel?: boolean
+    containerStyle?: StyleProp<ViewStyle>
 }
 
-export default function inputMascarado({ label, placeholder, valor, aoMudarTexto, tipo}: InputMascaradoPropriedades){
+export default function InputMascarado({ label, placeholder, valor, aoMudarTexto, tipo, containerStyle, editavel = true}: InputMascaradoPropriedades){
     const [senhaOculta, setSenhaOculta] = useState(true) 
 
     const selecionarMascara = () => {
         if (tipo === 'cpf') return Masks.BRL_CPF
+        if (tipo === 'telefone') return Masks.BRL_PHONE
+        if (tipo === 'cep') return MASCARA_CEP
+        if (tipo === 'data') return Masks.DATE_DDMMYYYY
         return undefined
     }
 
     const definirTeclado = () => {
-        if (tipo === 'cpf') return 'numeric'
+        if (tipo === 'cpf' || tipo ==='telefone' || tipo === 'cep' || tipo === 'data') return 'numeric'
         if (tipo === 'email') return 'email-address'
         return 'default'
     }
 
     return (
-        <View style={styles.container}>
-            <Text style = {styles.label}>{label}</Text>
+        <View style={[styles.container, containerStyle]}>
+            {label && <Text style = {styles.label}>{label}</Text>}
 
-            <View style= {styles.inputArea}>
+            <View style= {[styles.inputArea, !editavel && {backgroundColor: colors.alertColorSistem, opacity: 0.7}]}>
                 <MaskInput
                 style={[styles.input, tipo === 'senha' && styles.inputComIcone]}
                 placeholder={placeholder}
@@ -44,6 +50,7 @@ export default function inputMascarado({ label, placeholder, valor, aoMudarTexto
                 autoCapitalize="none"
 
                 secureTextEntry={tipo === 'senha' ? senhaOculta: false}
+                editable = {editavel}
                 />
                 {tipo === 'senha' && (
                     <TouchableOpacity
