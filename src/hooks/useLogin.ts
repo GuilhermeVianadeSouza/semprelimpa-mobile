@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { mensagensDeERRO } from "../utils/erros";
 import { validarEmail, validarSenha, validarCpf } from "../utils/validacoes";
 import { useState } from "react"; 
+import { realizarLogin } from "../services/authService";
 
 export function useLogin(metodoInicial: 'cpf' | 'e_mail', aoSucesso: () => void){
     //Responsavel pela navegação entre páginas
@@ -19,7 +20,7 @@ export function useLogin(metodoInicial: 'cpf' | 'e_mail', aoSucesso: () => void)
     const placeholderDinamico = metodoEscolhido === 'cpf' ? 'CPF: 000.000.000-00' : 'exemplo@email.com'
 
     
-    const lidarComLogin = () => {
+    const lidarComLogin = async () => {
         setMensagemErro(null)
 
         if(metodoEscolhido === 'e_mail'){
@@ -39,9 +40,14 @@ export function useLogin(metodoInicial: 'cpf' | 'e_mail', aoSucesso: () => void)
             return
            }
 
-           console.log("Sucesso! Dados prontos para continuar: ", {identificacaoPuro, senha})
-
-           aoSucesso()
+           try {
+            const data = await realizarLogin(identificacaoPuro, senha, metodoEscolhido)
+            console.log("Sucesso!", data)
+            aoSucesso()
+           } catch (error: any) {
+            console.log("Falhou", error)
+            setMensagemErro(error.message || "Erro ao conectar com o servidor")
+           }
         }
 
     return {
