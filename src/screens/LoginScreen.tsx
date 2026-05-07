@@ -14,7 +14,7 @@ export default function LoginScreen(){
     const route = useRoute<any>()
     const navigation = useNavigation<any>()
 
-    const metodoRecebido = route.params?.metodoSelecionado || 'email'
+    const metodoRecebido = route.params?.metodoSelecionado || 'e_mail'
     const aoLogarComSucesso = () => {
         navigation.navigate('Home')
     }

@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     headerCard: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 32
+        marginBottom: 12
     },
     botaoVoltar: {
         padding: 8,

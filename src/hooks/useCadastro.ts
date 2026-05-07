@@ -5,7 +5,6 @@ import { apenasNumeros, validarCep, validarCpf, validarEmail, validarMaiorIdade,
 import { useNavigation } from "@react-navigation/native";
 
 export function useCadastro(){
-    const navigation = useNavigation<any>
     const [etapaAtual, setEtapaAtual] = useState<1 | 2 | 3>(1) 
     const [mensagemErro, setMensagemErro] = useState<string | null>(null)
 

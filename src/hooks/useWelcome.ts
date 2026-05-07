@@ -8,7 +8,7 @@ export function selectUseLogin(){
     const abrirModal = () => setModalVisivel(true)
     const fecharModal = () => setModalVisivel(false)
 
-    const usuarioSelecionouItem = (metodo: 'cpf' | 'email') => {
+    const usuarioSelecionouItem = (metodo: 'cpf' | 'e_mail') => {
         setModalVisivel(false)
         
         navigation.navigate('Login', {metodoSelecionado: metodo})
