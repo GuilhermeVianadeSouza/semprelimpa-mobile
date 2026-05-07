@@ -2,14 +2,13 @@ import { useState } from "react";
 import { buscarCepViaCep } from "../services/viaCepService"; 
 import { mensagensDeERRO } from "../utils/erros";
 import { apenasNumeros, validarCep, validarCpf, validarEmail, validarMaiorIdade, validarSenha, validarTelefone } from "../utils/validacoes";
-import { useNavigation } from "@react-navigation/native";
 
 export function useCadastro(){
     const [etapaAtual, setEtapaAtual] = useState<1 | 2 | 3>(1) 
     const [mensagemErro, setMensagemErro] = useState<string | null>(null)
 
     const [nome, setNome] = useState("")
-    const [email, setEmail] = useState("")
+    const [e_mail, setEmail] = useState("")
     const [telefone, setTelefone] = useState("")
     const [dataNascimento, setDataNascimento] = useState("")
     const [cpf, setCpf] = useState("")
@@ -32,7 +31,7 @@ export function useCadastro(){
 
         if (etapaAtual === 1) {
             if(nome.trim().length < 3  || nome.trim().length > 100) return setMensagemErro(mensagensDeERRO.preencherCampo.nome)
-            if(!validarEmail(email)) return setMensagemErro(mensagensDeERRO.validacao.emailInvalido)
+            if(!validarEmail(e_mail)) return setMensagemErro(mensagensDeERRO.validacao.emailInvalido)
             if(!validarCpf(cpf)) return setMensagemErro(mensagensDeERRO.validacao.cpfInvalido)
             if(!validarTelefone(telefone)) return setMensagemErro
             if(!validarMaiorIdade(dataNascimento)) return setMensagemErro(mensagensDeERRO.preencherCampo.idade)
@@ -55,7 +54,7 @@ export function useCadastro(){
         if(senha !== confirmarSenha) return setMensagemErro (mensagensDeERRO.validacao.senhasDiferentes)
 
             console.log("Dados para a API:", {
-                nome, email, telefone, cpf, dataNascimento,
+                nome, e_mail, telefone, cpf, dataNascimento,
                 endereco: { cep, rua, numero, complemento, bairro, cidade, estado},
                 senha, fotoUri
             })
@@ -94,7 +93,7 @@ export function useCadastro(){
 
     return {
         form:{
-            etapaAtual, mensagemErro, nome, email, telefone, cpf, dataNascimento,
+            etapaAtual, mensagemErro, nome, e_mail, telefone, cpf, dataNascimento,
             setNome, setEmail, setTelefone, setCpf, setDataNascimento,
             cep, rua, numero, complemento, bairro, cidade, estado, buscarCep,
             setCep, setRua, setNumero, setComplemento, setBairro, setCidade, setEstado,

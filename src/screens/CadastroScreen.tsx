@@ -28,7 +28,7 @@ export default function CadastroScreen() {
                     <View style={styles.etapaContainer}>
 
                         <InputMascarado label={textos.input.nome} tipo='texto' valor={form.nome} aoMudarTexto={(texto) =>form.setNome(texto)}/>
-                        <InputMascarado label={textos.input.Email} tipo='e_mail' valor={form.email} aoMudarTexto={(texto) => form.setEmail(texto)}/>
+                        <InputMascarado label={textos.input.Email} tipo='e_mail' valor={form.e_mail} aoMudarTexto={(texto) => form.setEmail(texto)}/>
                         <InputMascarado label={textos.input.telefone} tipo='telefone' valor={form.telefone} aoMudarTexto = {(texto) => form.setTelefone(texto)}/>
                         <InputMascarado label={textos.input.dataNascimento} tipo="data" valor={form.dataNascimento} aoMudarTexto={(data) => form.setDataNascimento(data)}/>
                         <InputMascarado label={textos.input.cpf} tipo="cpf" valor={form.cpf} aoMudarTexto={(cpf) => form.setCpf(cpf)}/>
@@ -39,11 +39,11 @@ export default function CadastroScreen() {
                 return (
                     <View style={styles.etapaContainer}>
                         
-                        <InputMascarado label="CEP" tipo="cep" valor={form.cep} aoMudarTexto={() => {}} />
+                        <InputMascarado label="CEP" tipo="cep" valor={form.cep} aoMudarTexto={(textoMascara) => acoes.atualizarCep(textoMascara)} />
                         
                         {/* Bairro e Rua ficam soltos, ocupando a linha toda */}
-                        <InputMascarado label="Rua" tipo="texto" valor={form.rua} aoMudarTexto={() => {}} editavel={form.rua === ''} />
-                        <InputMascarado label="Bairro" tipo="texto" valor={form.bairro} aoMudarTexto={() => {}} editavel={form.bairro === ''} />
+                        <InputMascarado label="Rua" tipo="texto" valor={form.rua} aoMudarTexto={(texto) => form.setRua(texto)} editavel={form.rua === ''} />
+                        <InputMascarado label="Bairro" tipo="texto" valor={form.bairro} aoMudarTexto={(texto) => form.setBairro(texto)} editavel={form.bairro === ''} />
                         
                         {/* Cidade e UF lado a lado */}
                         <View style={styles.linhaDupla}>
@@ -71,7 +71,7 @@ export default function CadastroScreen() {
                                 label="Número" 
                                 tipo="texto" // Lembrando: texto para permitir "S/N" ou "102-B"
                                 valor={form.numero} 
-                                aoMudarTexto={() => {}} 
+                                aoMudarTexto={(numero) => form.setNumero(numero)} 
                                 containerStyle={{ flex: 0.4 }} // O número é menorzinho, ocupa 40% da tela
                             />
                             <InputMascarado 
@@ -142,20 +142,20 @@ export default function CadastroScreen() {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: '#fff',
+        
     },
     container: {
         flex: 1,
-        backgroundColor: '#f8f9fa', 
+     
     },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 20,
         paddingVertical: 15,
-        backgroundColor: '#fff',
+        
         borderBottomWidth: 1,
-        borderBottomColor: '#ebebeb',
+        
         elevation: 2, // Sombra suave no Android
         shadowColor: '#000', // Sombra suave no iOS
         shadowOffset: { width: 0, height: 2 },
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     },
     rodape: {
         padding: 20,
-        backgroundColor: '#fff',
+      
         borderTopWidth: 1,
         borderTopColor: '#ebebeb',
     },

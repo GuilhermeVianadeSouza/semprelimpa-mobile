@@ -1,5 +1,3 @@
-import { apenasNumeros} from "../utils/validacoes"
-
 export interface ViaCepResponse {
     cep: string
     logradouro: string
