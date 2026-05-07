@@ -1,11 +1,15 @@
  export const realizarLogin = async (identificacaoPuro: string, senha: string, metodoEscolhido: string) => {
-        const payload = 
+    const endpoint = metodoEscolhido === 'e_mail'
+    ? "Loginemail"
+    : "Logincpf"    
+    
+    const payload = 
             metodoEscolhido === 'e_mail'
                 ? { e_mail: identificacaoPuro, senha }
                 : { cpf: identificacaoPuro, senha }
+    const url = `http://localhost:5000/v1/SempreLimpa/${endpoint}`
 
-        const response = await fetch(
-            "http://localhost:5000/v1/SempreLimpa/Loginemail",
+        const response = await fetch(url,
             {
                 method: "POST",
                 headers: {
