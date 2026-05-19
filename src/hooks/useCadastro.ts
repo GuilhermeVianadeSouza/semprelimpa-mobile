@@ -97,6 +97,8 @@ export function useCadastro(){
         };
 
         console.log("Payload padronizado para a API:", payloadParaAPI)
+
+        return true
     }
 
     const voltarEtapa = () => {

@@ -22,6 +22,15 @@ export default function CadastroScreen() {
             acoes.voltarEtapa()
         }
     }
+
+    const lidarComFinalizacao = async () => {
+        const sucesso = await acoes.finalizarCadastro()
+
+        if (sucesso){
+            navigation.navigate('Login')
+        }
+    }
+
     const renderizarEtapaAtual = () => {
         switch (form.etapaAtual) {
             case 1:
@@ -217,7 +226,7 @@ export default function CadastroScreen() {
                 </ScrollView>
                     <BotaoPadrao
                         title={form.etapaAtual === 3 ? textos.botao.finalizar : textos.botao.continuar}
-                        onPress={form.etapaAtual === 3 ? acoes.finalizarCadastro : acoes.avancarEtapa}
+                        onPress={form.etapaAtual === 3 ? lidarComFinalizacao : acoes.avancarEtapa}
                     >
                     </BotaoPadrao>
             </CardAutenticacao>
