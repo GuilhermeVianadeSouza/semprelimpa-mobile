@@ -5,6 +5,7 @@ import WelcomeScreen from "../screens/WelcomeScreen";
 import LoginScreen from '../screens/LoginScreen';
 import CadastroScreen from "../screens/CadastroScreen";
 
+
 const Stack = createNativeStackNavigator()
 
 export default function AutentRoutes(){

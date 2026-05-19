@@ -75,5 +75,12 @@ export const validarCep = (cepStr: string): boolean => {
 }
 
 export const apenasNumeros = (texto: string): string => {
+    if (!texto) return ""
     return texto.replace(/\D/g, '')
+}
+
+export const formatarDataParaBanco = (dataBr: string) => {
+    if (!dataBr || !dataBr.includes('/')) return dataBr
+    const [dia, mes, ano] = dataBr.split('/')
+    return `${ano}-${mes}-${dia}`
 }
