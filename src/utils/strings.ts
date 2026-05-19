@@ -46,7 +46,8 @@ export const textos = {
     },
     cardAuten:{
         login: "Login",
-        cadastra: "Cadastre-se"
+        cadastra: "Cadastre-se",
+        recuperacaoSenha: "Recuperação de Senha"
     }
 
 

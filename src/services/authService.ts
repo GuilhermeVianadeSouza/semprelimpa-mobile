@@ -26,3 +26,23 @@
     }
  return data
 }
+export async function esquecerSenha(email: string) {
+    const response = await fetch(
+      'http://localhost:5000/v1/semprelimpa/esquecisenha',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      }
+    )
+  
+    const data = await response.json()
+  
+    if (!response.ok) {
+      throw new Error(data.message || 'Erro ao solicitar recuperação de senha.')
+    }
+  
+    return data
+  }
