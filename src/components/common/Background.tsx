@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { colors } from "../theme/colors";
+import { colors } from "../../theme/colors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface BackgroundPropriedades{

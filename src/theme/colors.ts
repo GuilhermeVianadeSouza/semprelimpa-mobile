@@ -6,7 +6,7 @@ export const colors = {
   background: '#F0F4F8',   
   optinalText: '#82C6FF',     
   text: '#000000',         
-  textSecunday: '#7B7B7B',
+  textSecundary: '#7B7B7B',
   textPayCard: '#ABABAB',
   defaultText: '#FFFFFF',     
   disabled: '#A0C4FF',     
@@ -16,5 +16,9 @@ export const colors = {
   alertColorSistem: '#FEF3C7',
   strokeForAlert: '#FCD34D',
   primaryColorAlertText: '#92400E',
-  secundaryColorAlertText: '#B45309'
+  secundaryColorAlertText: '#B45309',
+  autenticCard: '#f1f6fa',
+  iconColorArrow: '#475569',
+  grayIcon: '#6B7280'
 };
+

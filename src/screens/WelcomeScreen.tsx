@@ -1,12 +1,19 @@
+//Componentes
+import CabecalhoFixo from '../components/common/CabecalhoFixo';
+import BotaoPadrao from "../components/common/BotaoPadrao";
+import Background from "../components/common/Background";
+import Carrossel from "../components/tela-inicial/Carrossel";
+import BottomSheetlogin from "../components/tela-inicial/BottomSheetLogin";
+
+//UI/UX
 import React from "react";
 import { View, Text, StyleSheet} from "react-native";
-import CabecalhoFixo from '../components/CabecalhoFixo';
-import BotaoPadrao from "../components/BotaoPadrao";
-import Background from "../components/Background";
-import Carrossel from "../components/Carrossel";
 import {textos} from "../utils/strings";
 import { colors } from "../theme/colors";
 
+//Logica: 
+import { selectUseLogin } from '../hooks/useWelcome';
+import { useNavigation } from '@react-navigation/native';
 
 const carrosselImagens = [
     {id: '1', source: require('../assets/SempreLimpaCarrosel1.png') },
@@ -14,7 +21,10 @@ const carrosselImagens = [
     {id: '3', source: require('../assets/SempreLimpaCarrosel3.png') },
 ]
 
-export default function HomeScreen(){
+export default function WelcomeScreen(){
+  const navigation = useNavigation<any>()
+  const {modalVisivel, abrirModal, fecharModal, usuarioSelecionouItem} = selectUseLogin()
+
     return (
         <Background>
             <CabecalhoFixo
@@ -38,14 +48,14 @@ export default function HomeScreen(){
                         title={textos.botao.entrar}
                         backgroundColor={colors.primary}
                         textColor={colors.defaultText}
-                        onPress={() =>{}}/>
+                        onPress={abrirModal}/>
                       
                       <BotaoPadrao
                       title={textos.botao.cadastrase}
                       backgroundColor="transparent"
                       textColor={colors.primary}
                       borderColor={colors.primary}
-                      onPress={() => {}}/>
+                      onPress={() => navigation.navigate('Cadastro')}/>
 
                     <View style={styles.rodape}>
                         <Text style={styles.textoRodape}>
@@ -53,7 +63,10 @@ export default function HomeScreen(){
                         </Text>
                     </View>
                 </View>
-
+            <BottomSheetlogin
+            visivel={modalVisivel}
+            aoFechar={fecharModal}
+            aoSelecionarMetodo={usuarioSelecionouItem}/>
         </Background>
     )
 }
@@ -103,6 +116,6 @@ const styles = StyleSheet.create({
   },
   textoRodape: {
     fontSize: 12,
-    color: colors.textSecunday, 
+    color: colors.textSecundary, 
   }
 });

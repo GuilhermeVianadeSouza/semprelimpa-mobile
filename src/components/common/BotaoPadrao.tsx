@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Text, StyleSheet, TouchableOpacity} from 'react-native';
-import { colors } from "../theme/colors";
+import { colors } from "../../theme/colors";
 
 //Essa é uma forma de criação de um componente em react native: interface é o que é/será a interface do objeto
 

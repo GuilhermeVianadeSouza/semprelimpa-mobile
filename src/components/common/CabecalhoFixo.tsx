@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, StyleSheet, ImageSourcePropType, View, Image } from "react-native";
-import { colors } from "../theme/colors";
+import { colors } from "../../theme/colors";
 
 
 interface CabecalhoFixoPropiedades{

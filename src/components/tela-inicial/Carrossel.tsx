@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {View, FlatList, Image, StyleSheet, useWindowDimensions} from "react-native"
 import Paginacao from "./Paginacao";
+import { useCarrossel } from "../../hooks/carrosselIntrodutorio";
 
 interface CarrosselPropriedades{
     dados: { id: string; source: any } [];
@@ -16,6 +17,12 @@ export default function Carrossel({dados}: CarrosselPropriedades) {
 
     const tamanhoDeslocamento = larguraItem + (espacoLateral * 2)
 
+    const {
+      carrosselRef,
+      itemVisivelMudando,
+      viewabilityConfig
+    } = useCarrossel(dados.length)
+
     const handleScroll = (event: any) =>{
         const posicaoScroll = event.nativeEvent.contentOffset.x
         const indexAtual = Math.round(posicaoScroll / tamanhoDeslocamento);
@@ -24,6 +31,7 @@ export default function Carrossel({dados}: CarrosselPropriedades) {
     return (
         <View style={styles.container}>
       <FlatList 
+        ref= {carrosselRef}
         data={dados}
         keyExtractor={(item) => item.id}
         horizontal
@@ -35,6 +43,15 @@ export default function Carrossel({dados}: CarrosselPropriedades) {
         decelerationRate="fast" 
         onScroll={handleScroll} 
         scrollEventThrottle={16} 
+
+        onViewableItemsChanged={itemVisivelMudando}
+        viewabilityConfig={viewabilityConfig}
+
+        getItemLayout={(data, index) =>({
+          length: tamanhoDeslocamento,
+          offset: tamanhoDeslocamento * index,
+          index
+        })}
         
         renderItem={({ item }) => (
            <Image 
