@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { buscarCepViaCep } from "../services/viaCepService"; 
+import { realizarCadastro } from "../services/authService";
 import { mensagensDeERRO } from "../utils/erros";
 import { apenasNumeros, formatarDataParaBanco, validarCep, validarCpf, validarEmail, validarMaiorIdade, validarSenha, validarTelefone } from "../utils/validacoes";
 
@@ -65,14 +66,14 @@ export function useCadastro(){
         }
     }
 
-    const finalizarCadastro = () => {
+    const finalizarCadastro = async () => {
         let novosErros: Record<string, string> = {};
 
         if(!validarSenha(senha)) novosErros.senha = mensagensDeERRO.validacao.senhaFraca
 
         if (Object.keys(novosErros).length > 0) {
             setErros(novosErros);
-            return;
+            return false;
         }
 
         setErros({})
@@ -82,21 +83,32 @@ export function useCadastro(){
             e_mail, 
             telefone: apenasNumeros(telefone),
             cpf: apenasNumeros(cpf),
-            dataNascimento: formatarDataParaBanco(dataNascimento),
+            data_nascimento: formatarDataParaBanco(dataNascimento),
             endereco: { 
                 cep: apenasNumeros(cep), 
-                rua, 
+                logradouro: rua, 
                 numero, 
                 complemento, 
                 bairro, 
                 cidade, 
-                estado 
+                uf: estado 
             },
             senha, 
             fotoUri
         };
 
         console.log("Payload padronizado para a API:", payloadParaAPI)
+
+        try {
+            const resposta = await realizarCadastro(payloadParaAPI)
+            console.log("Sucesso na criação!", resposta);
+            return true
+        } catch (error: any) {
+            console.error("Erro capturado no finalizarCadastro:", error.message);
+            setErros(prev => ({ ...prev, geral: error.message }));
+        
+            return false;
+        }
     }
 
     const voltarEtapa = () => {
