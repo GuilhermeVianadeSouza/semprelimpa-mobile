@@ -42,11 +42,9 @@ export function useLogin(metodoInicial: 'cpf' | 'e_mail', aoSucesso: () => void)
 
            try {
             const data = await realizarLogin(identificacaoPuro, senha, metodoEscolhido)
-            console.log("Sucesso!", data)
             aoSucesso()
            } catch (error: any) {
-            console.log("Falhou", error)
-            setMensagemErro(error.message || "Erro ao conectar com o servidor")
+            setMensagemErro(mensagensDeERRO.api.servidorForaDoAr || error.message)
            }
         }
 

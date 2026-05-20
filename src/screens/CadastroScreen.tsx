@@ -27,7 +27,7 @@ export default function CadastroScreen() {
         const sucesso = await acoes.finalizarCadastro()
 
         if (sucesso){
-            navigation.navigate('Login')
+            navigation.replace('Login')
         }
     }
 
