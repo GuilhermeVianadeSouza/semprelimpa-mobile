@@ -18,13 +18,13 @@ export default function HeaderHome({
     const imagemPadrao = 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
 
     return (
-        <View>
-            <View>
+        <View style={styles.container}>
+            <View style= {styles.perfilContainer}>
                 <Image 
                 source={{uri: urlFotoPerfil ? urlFotoPerfil : imagemPadrao}}
                 style={styles.imagemPerfil}
                 />
-                <View style={styles.perfilContainer}>
+                <View style={styles.textosContainer}>
                     <Text style={styles.saudacao}>{textos.home.bemvindo},</Text>
                     <Text style={styles.nome} numberOfLines={1}>
                         {nomeUsuario}
@@ -37,7 +37,7 @@ export default function HeaderHome({
                 onPress={onPressNotificacao}
                 activeOpacity={0.7}
             >
-                <Feather name="bell" size={24} color={colors.defaultText || "#FFF"}/>
+                <Feather name="bell" size={25} color={colors.iconAndTextSelectColor || "#FFF"}/>
             </TouchableOpacity>
         </View>
     )
@@ -67,13 +67,14 @@ const styles = StyleSheet.create({
         flex: 1, 
     },
     saudacao: {
-        fontSize: 14,
-        color: '#E0E0E0', 
+        fontSize: 12,
+        color: colors.iconAndTextSelectColor, 
+        fontWeight: 'bold'
     },
     nome: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
-        color: '#FFFFFF', 
+        color: colors.primary, 
     },
     botaoNotificacao: {
         padding: 8, 
