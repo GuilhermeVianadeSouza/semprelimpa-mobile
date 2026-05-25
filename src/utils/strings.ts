@@ -48,4 +48,8 @@ export const textos = {
         login: "Login",
         cadastra: "Cadastre-se"
     },
+    home:{
+        bemvindo: "Bem-vindo de volta",
+        ola: "Olá"
+    }
 }

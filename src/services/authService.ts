@@ -7,7 +7,7 @@
     
     const payload = 
             metodoEscolhido === 'e_mail'
-                ? { e_mail: identificacaoPuro, senha }
+                ? { email: identificacaoPuro, senha }
                 : { cpf: identificacaoPuro, senha }
     const url = `${BASE_URL}${endpoint}`
 
