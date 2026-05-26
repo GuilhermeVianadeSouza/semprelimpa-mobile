@@ -49,16 +49,18 @@ export function HomeScreen() {
                     // Dados do Pedido Atual (Aba Gota)
                     numeroPedido="10492"
                     statusTexto="Em processamento"
-                    progresso={65} // Teste mudar para 20 ou 95 para ver a máquina mudar de cor!
+                    progresso={50} // Teste mudar para 20 ou 95 para ver a máquina mudar de cor!
                     mensagem="Sua roupa está a secar."
                     onVerDetalhes={lidarComDetalhesPedido}
                     
                     // Dados de Impacto (Aba Folha)
                     cestosLavados={2}
-                    reaisEconomizados="32,50"
-                    economiaAgua="45L"
-                    economiaEnergia="2.1 kWh"
-                    economiaInsumos="R$ 8"
+                    reaisEconomizadosTotais="32,50"
+                    economiaAguaVolume="45 Litros"
+                    economiaAguaReais="R$ 4,50"
+                    economiaEnergiaKw="2.1 kWh"
+                    economiaEnergiaReais="R$ 2,00"
+                    economiaInsumosReais="R$ 8,00"
                     tempoPoupado="3h 30m"
                 />
 
