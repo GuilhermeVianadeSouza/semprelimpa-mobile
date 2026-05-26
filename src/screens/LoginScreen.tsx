@@ -16,7 +16,7 @@ export default function LoginScreen(){
 
     const metodoRecebido = route.params?.metodoSelecionado || 'e_mail'
     const aoLogarComSucesso = () => {
-        navigation.navigate('Home')
+        navigation.navigate('Perfil')
     }
 
     const lidarComBotaoVoltar = () => {
