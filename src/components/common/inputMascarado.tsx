@@ -13,9 +13,10 @@ interface InputMascaradoPropriedades{
     tipo: 'cpf' | 'e_mail' | 'senha' | 'telefone' | 'cep' | 'data' | 'texto'
     editavel?: boolean
     containerStyle?: StyleProp<ViewStyle>
+    erro?: string | null
 }
 
-export default function InputMascarado({ label, placeholder, valor, aoMudarTexto, tipo, containerStyle, editavel = true}: InputMascaradoPropriedades){
+export default function InputMascarado({ label, placeholder, valor, aoMudarTexto, tipo, containerStyle, editavel = true, erro}: InputMascaradoPropriedades){
     const [senhaOculta, setSenhaOculta] = useState(true) 
 
     const selecionarMascara = () => {
@@ -36,7 +37,8 @@ export default function InputMascarado({ label, placeholder, valor, aoMudarTexto
         <View style={[styles.container, containerStyle]}>
             {label && <Text style = {styles.label} numberOfLines={1} adjustsFontSizeToFit={true} minimumFontScale={0.7}>{label}</Text>}
 
-            <View style= {[styles.inputArea, !editavel && {backgroundColor: colors.alertColorSistem, opacity: 0.7}]}>
+            <View style= {[styles.inputArea, !editavel && {backgroundColor: colors.primary, opacity: 0.7}, 
+                erro ? styles.inputComErro : null]}>
                 <MaskInput
                 style={[styles.input, tipo === 'senha' && styles.inputComIcone]}
                 placeholder={placeholder}
@@ -65,6 +67,9 @@ export default function InputMascarado({ label, placeholder, valor, aoMudarTexto
                     </TouchableOpacity>
                 )}
             </View>
+            {erro && (
+                    <Text style={styles.textoErro}>{erro}</Text>
+                )}
         </View>
     )
 }
@@ -103,5 +108,15 @@ const styles = StyleSheet.create({
         height: '100%',
         justifyContent: 'center',
         paddingHorizontal: 16
+    },
+    inputComErro: {
+        borderColor: '#FF3B30', 
+        borderWidth: 1.5,
+    },
+    textoErro: {
+        color: '#FF3B30',
+        fontSize: 12, 
+        marginTop: 4,
+        fontWeight: '500',
     }
 })

@@ -8,11 +8,12 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { useNavigation } from '@react-navigation/native';
 import CardAutenticacao from '../components/tela-login/cadastre-se/CardAutenticacao';
 import { useCadastro } from '../hooks/useCadastro';
+import { colors } from '../theme/colors';
 
 export default function CadastroScreen() {
     const navigation = useNavigation<any>()
 
-    const {form, acoes} = useCadastro()
+    const {form, acoes, erros} = useCadastro()
 
     const lidarComBotaoVoltar = () => {
         if(form.etapaAtual === 1) {
@@ -21,31 +22,115 @@ export default function CadastroScreen() {
             acoes.voltarEtapa()
         }
     }
+
+    const lidarComFinalizacao = async () => {
+        const sucesso = await acoes.finalizarCadastro()
+
+        if (sucesso){
+            navigation.replace('Login')
+        }
+    }
+
     const renderizarEtapaAtual = () => {
         switch (form.etapaAtual) {
             case 1:
                 return (
                     <View style={styles.etapaContainer}>
-
-                        <InputMascarado label={textos.input.nome} tipo='texto' valor={form.nome} aoMudarTexto={(texto) =>form.setNome(texto)}/>
-                        <InputMascarado label={textos.input.Email} tipo='e_mail' valor={form.e_mail} aoMudarTexto={(texto) => form.setEmail(texto)}/>
-                        <InputMascarado label={textos.input.telefone} tipo='telefone' valor={form.telefone} aoMudarTexto = {(texto) => form.setTelefone(texto)}/>
-                        <InputMascarado label={textos.input.dataNascimento} tipo="data" valor={form.dataNascimento} aoMudarTexto={(data) => form.setDataNascimento(data)}/>
-                        <InputMascarado label={textos.input.cpf} tipo="cpf" valor={form.cpf} aoMudarTexto={(cpf) => form.setCpf(cpf)}/>
-                        
-                    </View>
+            <InputMascarado 
+                label={textos.input.nome} 
+                tipo='texto' 
+                valor={form.nome} 
+                aoMudarTexto={(texto) => {
+                    if (texto !== form.nome) { 
+                        form.setNome(texto);
+                        acoes.limparErro('nome');
+                    }
+                }}
+                erro={erros.nome}
+            />
+            <InputMascarado 
+                label={textos.input.Email} 
+                tipo='e_mail' 
+                valor={form.e_mail} 
+                aoMudarTexto={(texto) => {
+                    if (texto !== form.e_mail) {
+                        form.setEmail(texto);
+                        acoes.limparErro('e_mail');
+                    }
+                }}
+                erro={erros.e_mail}
+            />
+            <InputMascarado 
+                label={textos.input.telefone} 
+                tipo='telefone' 
+                valor={form.telefone} 
+                aoMudarTexto={(texto) => {
+                    if (texto !== form.telefone) {
+                        form.setTelefone(texto);
+                        acoes.limparErro('telefone');
+                    }
+                }}
+                erro={erros.telefone}
+            />
+            <InputMascarado 
+                label={textos.input.dataNascimento} 
+                tipo="data" 
+                valor={form.dataNascimento} 
+                aoMudarTexto={(data) => {
+                    if (data !== form.dataNascimento) {
+                        form.setDataNascimento(data);
+                        acoes.limparErro('dataNascimento');
+                    }
+                }}
+                erro={erros.dataNascimento}
+            />
+            <InputMascarado 
+                label={textos.input.cpf} 
+                tipo="cpf" 
+                valor={form.cpf} 
+                aoMudarTexto={(cpf) => {
+                    if (cpf !== form.cpf) {
+                        form.setCpf(cpf);
+                        acoes.limparErro('cpf');
+                    }
+                }}
+                erro={erros.cpf}
+            />
+        </View>
                 )
             case 2:
                 return (
                     <View style={styles.etapaContainer}>
+                        <InputMascarado 
+                            label="CEP" 
+                            tipo="cep" 
+                            valor={form.cep} 
+                            aoMudarTexto={(textoMascara) => acoes.atualizarCep(textoMascara)} 
+                            erro={erros.cep}
+                        />
+                        <InputMascarado 
+                            label="Rua" 
+                            tipo="texto" 
+                            valor={form.rua} 
+                            aoMudarTexto={(texto) => {
+                                form.setRua(texto);
+                                acoes.limparErro('rua');
+                            }} 
+                            editavel={form.rua === ''} 
+                            erro={erros.rua}
+                        />
+                        <InputMascarado 
+                            label="Bairro" 
+                            tipo="texto" 
+                            valor={form.bairro} 
+                            aoMudarTexto={(texto) => {
+                                form.setBairro(texto);
+                                acoes.limparErro('bairro');
+                            }} 
+                            editavel={form.bairro === ''} 
+                            erro={erros.bairro}
+                        />
                         
-                        <InputMascarado label="CEP" tipo="cep" valor={form.cep} aoMudarTexto={(textoMascara) => acoes.atualizarCep(textoMascara)} />
-                        
-                        {/* Bairro e Rua ficam soltos, ocupando a linha toda */}
-                        <InputMascarado label="Rua" tipo="texto" valor={form.rua} aoMudarTexto={(texto) => form.setRua(texto)} editavel={form.rua === ''} />
-                        <InputMascarado label="Bairro" tipo="texto" valor={form.bairro} aoMudarTexto={(texto) => form.setBairro(texto)} editavel={form.bairro === ''} />
-                        
-                        {/* Cidade e UF lado a lado */}
                         <View style={styles.linhaDupla}>
                             <InputMascarado 
                                 label="Cidade" 
@@ -54,6 +139,7 @@ export default function CadastroScreen() {
                                 aoMudarTexto={() => {}} 
                                 containerStyle={{ flex: 1 }} 
                                 editavel={form.cidade === ''} 
+                                erro={erros.cidade}
                             />
                             <InputMascarado 
                                 label="UF" 
@@ -62,25 +148,36 @@ export default function CadastroScreen() {
                                 aoMudarTexto={() => {}} 
                                 containerStyle={{ flex: 1 }} 
                                 editavel={form.estado === ''} 
+                                erro={erros.estado}
                             />
                         </View>
 
-                        {/* Número e Complemento lado a lado (Fica com um visual muito profissional) */}
                         <View style={styles.linhaDupla}>
                             <InputMascarado 
                                 label="Número" 
-                                tipo="texto" // Lembrando: texto para permitir "S/N" ou "102-B"
+                                tipo="texto" 
                                 valor={form.numero} 
-                                aoMudarTexto={(numero) => form.setNumero(numero)} 
-                                containerStyle={{ flex: 0.4 }} // O número é menorzinho, ocupa 40% da tela
+                                aoMudarTexto={(numero) => {
+                                    if(numero !== form.numero){
+                                    form.setNumero(numero);
+                                    acoes.limparErro('numero');
+                                    }
+                                }} 
+                                containerStyle={{ flex: 0.4 }} 
+                                erro={erros.numero}
                             />
                             <InputMascarado 
                                 label="Complemento" 
-                                placeholder="Apto, Bloco (Opcional)"
                                 tipo="texto" 
                                 valor={form.complemento} 
-                                aoMudarTexto={() => {}} 
-                                containerStyle={{ flex: 1 }} // O complemento ocupa o resto do espaço
+                                aoMudarTexto={(complemento) => {
+                                    if(complemento !== form.complemento){
+                                    form.setComplemento(complemento);
+                                    acoes.limparErro('complemento');
+                                    }
+                                }} 
+                                containerStyle={{ flex: 1 }} 
+                                erro={erros.complemento}
                             />
                         </View>
                     </View>
@@ -88,16 +185,16 @@ export default function CadastroScreen() {
             case 3:
                 return (
                     <View style={styles.etapaContainer}>
-                        
                         <InputMascarado 
-                            label="Crie uma Senha" 
-                            placeholder="Minímo 6 caracteres"
+                            label="Insira uma senha" 
                             tipo="senha" 
                             valor={form.senha} 
-                            aoMudarTexto={(mascarado, puro) => console.log('Senha:', puro)} 
+                            aoMudarTexto={(mascarado, puro) => {
+                                form.setSenha(puro);
+                                acoes.limparErro('senha');
+                            }} 
+                            erro={erros.senha}
                         />
-                        
-                    
                         <Text style={styles.labelImagem}>Foto de Perfil (Opcional)</Text>
                         <TouchableOpacity style={styles.botaoUploadImagem} activeOpacity={0.7}>
                             <Text style={styles.textoUpload}>Toque para escolher uma foto</Text>
@@ -106,10 +203,9 @@ export default function CadastroScreen() {
                 );
 
             default:
-                
                 return null;
-            }
         }
+    }
 
     return (
         <Background>
@@ -130,8 +226,7 @@ export default function CadastroScreen() {
                 </ScrollView>
                     <BotaoPadrao
                         title={form.etapaAtual === 3 ? textos.botao.finalizar : textos.botao.continuar}
-                        onPress={form.etapaAtual === 3 ? acoes.finalizarCadastro : acoes.avancarEtapa}
-                        
+                        onPress={form.etapaAtual === 3 ? lidarComFinalizacao : acoes.avancarEtapa}
                     >
                     </BotaoPadrao>
             </CardAutenticacao>
@@ -156,8 +251,8 @@ const styles = StyleSheet.create({
         
         borderBottomWidth: 1,
         
-        elevation: 2, // Sombra suave no Android
-        shadowColor: '#000', // Sombra suave no iOS
+        elevation: 2,
+        shadowColor: '#000', 
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.05,
         shadowRadius: 3,
@@ -175,15 +270,20 @@ const styles = StyleSheet.create({
     },
     subtituloHeader: {
         fontSize: 14,
-        color: '#007AFF', // Cor de destaque sutil
+        color: '#007AFF', 
         fontWeight: '500'
+    },
+    senha: {
+        fontSize: 20,
+        color: colors.grayIcon,
+        fontWeight: 'bold'
     },
     scroll: {
         flex: 1,
     },
     scrollContent: {
         padding: 20,
-        paddingBottom: 40, // Espaço extra no final da rolagem
+        paddingBottom: 40, 
     },
     etapaContainer: {
         flex: 1,
@@ -229,14 +329,14 @@ const styles = StyleSheet.create({
         borderTopColor: '#ebebeb',
     },
     botaoAcao: {
-        backgroundColor: '#007AFF', // Azul padrão
+        backgroundColor: '#007AFF', 
         paddingVertical: 16,
         borderRadius: 12,
         alignItems: 'center',
         justifyContent: 'center'
     },
     botaoFinalizar: {
-        backgroundColor: '#28a745', // Verde para transmitir conclusão na última etapa
+        backgroundColor: '#28a745', 
     },
     textoBotaoAcao: {
         color: '#fff',

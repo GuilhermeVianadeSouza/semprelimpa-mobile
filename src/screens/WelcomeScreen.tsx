@@ -25,8 +25,6 @@ export default function WelcomeScreen(){
   const navigation = useNavigation<any>()
   const {modalVisivel, abrirModal, fecharModal, usuarioSelecionouItem} = selectUseLogin()
 
-
-
     return (
         <Background>
             <CabecalhoFixo

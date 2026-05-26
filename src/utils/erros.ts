@@ -11,6 +11,7 @@ export const mensagensDeERRO = {
         generico: "Não foi possível conectar ao servidor. Verifique sua internet.",
         credenciaisInvalidas: "CPF/E-mail ou senha incorretos. Tente novamente.",
         usuarioBloqueado: "Sua conta foi temporariamente bloqueada por segurança.",
+        servidorForaDoAr: "Não foi possivel realizar a ação. Servidor está fora do ar/indisponivel",
         timeout: "O servidor demorou muito para responder."
     },
 
