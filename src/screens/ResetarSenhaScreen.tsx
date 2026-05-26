@@ -8,11 +8,11 @@ import CardAutenticacao from "../components/tela-login/cadastre-se/CardAutentica
 import InputMascarado from "../components/common/inputMascarado";
 import BotaoPadrao from "../components/common/BotaoPadrao";
 
-import { useRecuperacaoSenha } from "../hooks/useRecuperacaoSenha";
+import { useResetarSenha } from "../hooks/useResetarSenha";
 import { textos } from "../utils/strings";
 import { colors } from "../theme/colors";
 
-export default function RecuperacaoSenhaScreen() {
+export default function ResetarSenhaScreen() {
   const navigation = useNavigation<any>();
 
   const lidarComBotaoVoltar = () => {
@@ -20,10 +20,12 @@ export default function RecuperacaoSenhaScreen() {
   };
 
   const aoSucesso = () => {
-    navigation.navigate('RedefinirSenha')
-  }
+    navigation.navigate("Login", {
+      mensagemSucesso: "Senha alterada com sucesso!"
+    });
+  };
 
-  const { form, acoes } = useRecuperacaoSenha(aoSucesso);
+  const { form, acoes } = useResetarSenha(aoSucesso);
 
   return (
     <Background>
@@ -33,18 +35,28 @@ export default function RecuperacaoSenhaScreen() {
       />
 
       <CardAutenticacao
-        titulo={textos.cardAuten.recuperacaoSenha}
+        titulo="Redefinir Senha"
         onBack={lidarComBotaoVoltar}
       >
         <View style={styles.formConteudo}>
+
           <InputMascarado
-            label="Seu E-mail"
-            placeholder="exemplo@email.com"
-            valor={form.email}
-            tipo="e_mail"
+            label="Token de Recuperação"
+            placeholder="Digite o token recebido"
+            valor={form.token}
+            tipo="texto"
             aoMudarTexto={(mascarado, puro) => {
-              // Como o campo é apenas e-mail, usamos o valor puro.
-              form.setEmail(puro);
+              form.setToken(puro);
+            }}
+          />
+
+          <InputMascarado
+            label="Nova Senha"
+            placeholder="Digite sua nova senha"
+            valor={form.novaSenha}
+            tipo="senha"
+            aoMudarTexto={(mascarado, puro) => {
+              form.setNovaSenha(puro);
             }}
           />
 
@@ -67,8 +79,8 @@ export default function RecuperacaoSenhaScreen() {
           )}
 
           <BotaoPadrao
-            title={form.carregando ? "Enviando..." : "Continuar"}
-            onPress={acoes.enviarRecuperacao}
+            title={form.carregando ? "Redefinindo..." : "Redefinir Senha"}
+            onPress={acoes.enviarResetSenha}
           />
         </View>
       </CardAutenticacao>

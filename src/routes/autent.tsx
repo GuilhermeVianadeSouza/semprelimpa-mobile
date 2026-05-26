@@ -5,16 +5,18 @@ import WelcomeScreen from "../screens/WelcomeScreen";
 import LoginScreen from '../screens/LoginScreen';
 import CadastroScreen from "../screens/CadastroScreen";
 import RecuperacaoSenhaScreen from "../screens/RecuperacaoSenhaScreen";
+import ResetarSenhaScreen from "../screens/ResetarSenhaScreen";
 
 const Stack = createNativeStackNavigator()
 
 export default function AutentRoutes(){
     return (
         <Stack.Navigator screenOptions={{ headerShown: false}}>
-            <Stack.Screen name="RecuperacaoSenha" component={RecuperacaoSenhaScreen}/>
             <Stack.Screen name="Welcome" component= {WelcomeScreen}/>
             <Stack.Screen name= "Login" component={LoginScreen}/>
             <Stack.Screen name= "Cadastro" component={CadastroScreen}/>
+            <Stack.Screen name="RecuperacaoSenha" component={RecuperacaoSenhaScreen}/>
+            <Stack.Screen name="RedefinirSenha" component={ResetarSenhaScreen}/>
         </Stack.Navigator>
     )
 }

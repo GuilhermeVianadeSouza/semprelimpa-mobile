@@ -46,3 +46,32 @@ export async function esquecerSenha(email: string) {
   
     return data
   }
+  
+  export async function resetarSenha(
+    token: string,
+    novaSenha: string
+  ) {
+    const response = await fetch(
+      'http://localhost:5000/v1/semprelimpa/resetarsenha',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token,
+          novaSenha,
+        }),
+      }
+    )
+  
+    const data = await response.json()
+  
+    if (!response.ok) {
+      throw new Error(
+        data.message || 'Erro ao resetar senha.'
+      )
+    }
+  
+    return data
+  }
