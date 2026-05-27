@@ -5,11 +5,11 @@ import { buscarPerfilUsuario } from "../services/usuarioService";
 const formatarDataBR = (dataRaw: string | null | undefined): string => {
     if (!dataRaw) return '';
     try {
-        // Se já vier formatada do back "DD/MM/AAAA", não mexe
+        
         if (dataRaw.includes('/')) return dataRaw;
         
-        // Se vier "2001-10-18T02:00:00.000Z"
-        const apenasData = dataRaw.split('T')[0]; // "2001-10-18"
+        
+        const apenasData = dataRaw.split('T')[0];
         const [ano, mes, dia] = apenasData.split('-');
         return `${dia}/${mes}/${ano}`;
     } catch {
@@ -53,10 +53,10 @@ export function usePerfil() {
                     telefone: dadosBanco.telefone || '',
                     cpf: dadosBanco.cpf || '',
                     
-                    // 🛠️ FORMATANDO A DATA NO FRONT PARA GARANTIR:
+                    //  FORMATANDO A DATA NO FRONT PARA GARANTIR:
                     dataNascimento: formatarDataBR(dadosBanco.data_nascimento || dadosBanco.dataNascimento),
                     
-                    // Mapeamento do endereço baseado no que seu DAO devolve
+                    // Mapeamento do endereço baseado no que o DAO devolve
                     cep: dadosBanco.cep || '',
                     rua: dadosBanco.logradouro || dadosBanco.rua || '',
                     bairro: dadosBanco.bairro || '',

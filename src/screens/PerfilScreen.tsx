@@ -10,12 +10,14 @@ import {
 import Background from "../components/common/Background";
 import { colors } from "../theme/colors";
 import { usePerfil } from "../hooks/usePerfil"
+import HeaderPerfil from "../components/tela-perfil/HeaderPerfil";
+import { useNavigation } from "@react-navigation/native";
 
 export default function PerfilScreen() {
 
-    const { form } = usePerfil()
+    const navigation = useNavigation<any>()
 
-    console.log(form)
+    const { form } = usePerfil()
 
     if (!form || !form.usuario) {
       return (
@@ -24,12 +26,22 @@ export default function PerfilScreen() {
         </View>
       )
     }
+    
   
     return (
       <Background>
+        <HeaderPerfil
+            onPressVoltar={() => navigation.goBack()}
+            titulo="Perfil"
+            onPressEditar={() => console.log('Editar')}
+            />
         <ScrollView
-          contentContainerStyle={styles.container}
+          contentContainerStyle={[
+            styles.container,
+            { flexGrow: 1}
+          ]}
           showsVerticalScrollIndicator={false}
+          bounces={false}
         >
           <View style={styles.avatarContainer}>
             <Image
@@ -45,7 +57,7 @@ export default function PerfilScreen() {
           <View style={styles.informacoesContainer}>
             <Text style={styles.info}>{form.usuario.email}</Text>
             <Text style={styles.info}>{form.usuario.telefone}</Text>
-            <Text style={styles.info}>{form. usuario.cpf}</Text>
+            <Text style={styles.info}>{form.usuario.cpf}</Text>
             <Text style={styles.info}>{form.usuario.dataNascimento}</Text>
           </View>
   
@@ -72,9 +84,10 @@ export default function PerfilScreen() {
   
   const styles = StyleSheet.create({
     container: {
+      flexGrow: 1,
       paddingHorizontal: 32,
-      paddingTop: 60,
-      paddingBottom: 80,
+      paddingTop: 1,
+      paddingBottom: 0,
       alignItems: "center",
     },
   
@@ -87,7 +100,7 @@ export default function PerfilScreen() {
       justifyContent: "center",
       alignItems: "center",
       overflow: "hidden",
-      marginBottom: 28,
+      marginBottom: 25,
     },
   
     avatar: {
@@ -100,13 +113,13 @@ export default function PerfilScreen() {
       fontSize: 34,
       fontWeight: "700",
       color: colors.textGray,
-      marginBottom: 40,
+      marginBottom: 35,
       textAlign: "center",
     },
   
     informacoesContainer: {
       width: "100%",
-      marginBottom: 36,
+      marginBottom: 30,
     },
   
     info: {
@@ -124,6 +137,6 @@ export default function PerfilScreen() {
       fontSize: 34,
       fontWeight: "700",
       color: colors.textGray,
-      marginBottom: 24,
+      marginBottom: 15,
     },
   });
