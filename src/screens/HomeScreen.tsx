@@ -8,6 +8,7 @@ import HeaderHome from '../components/tela-home/HeaderHome';
 import CardDashboard from '../components/tela-home/CardDashboard';
 import BotaoPadrao from '../components/common/BotaoPadrao';
 import { colors } from '../theme/colors';
+import IconeAdd from '../assets/add-icon.svg'
 
 export function HomeScreen() {
     const navigation = useNavigation<any>();
@@ -70,10 +71,11 @@ export function HomeScreen() {
                     <Text style={styles.tituloSecao}>O que deseja fazer hoje?</Text>
                     
                     <View style={styles.espacadorBotao}>
-                        <BotaoPadrao 
-                            title="Solicitar Nova Lavagem 🧺"
+                        <BotaoPadrao
+                            icon={<IconeAdd width={20} height={20} fill="#FFFFFF" />}
+                            title="Solicitar Nova Lavagem"
                             onPress={lidarComNovoPedido}
-                            backgroundColor={colors.primary || '#0056b3'}
+                            backgroundColor={colors.primary || colors.iconAndTextSelectColor}
                         />
                     </View>
                 </View>
