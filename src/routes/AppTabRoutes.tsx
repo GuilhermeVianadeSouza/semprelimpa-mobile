@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors } from '../theme/colors'
 import { HomeScreen } from '../screens/HomeScreen';
+import PerfilScreen from '../screens/PerfilScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -51,7 +52,7 @@ export default function AppTabRoutes() {
 
             <Tab.Screen 
                 name="Perfil" 
-                component={Placeholder} 
+                component={PerfilScreen} 
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="account-outline" color={color} size={size} />
