@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Text } from 'react-native';
+import { View, StyleSheet, ScrollView, Text, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 // Importações dos seus componentes customizados (Ajuste os caminhos se necessário)
@@ -8,7 +8,11 @@ import HeaderHome from '../components/tela-home/HeaderHome';
 import CardDashboard from '../components/tela-home/CardDashboard';
 import BotaoPadrao from '../components/common/BotaoPadrao';
 import { colors } from '../theme/colors';
+import CardPedido from "../components/tela-home/CardPedido";
+
+// Importação do ícone de adicionar (Ajuste o caminho se necessário)
 import IconeAdd from '../assets/add-icon.svg'
+import IconeCesto from '../assets/cesto-icon.svg'
 
 export function HomeScreen() {
     const navigation = useNavigation<any>();
@@ -68,7 +72,6 @@ export function HomeScreen() {
                 {/* 3. ÁREA DE SEÇÃO OU ELEMENTOS EXTRAS */}
                 {/* Criamos um pequeno bloco visual para simular o restante da tela inicial */}
                 <View style={styles.secaoAcoes}>
-                    <Text style={styles.tituloSecao}>O que deseja fazer hoje?</Text>
                     
                     <View style={styles.espacadorBotao}>
                         <BotaoPadrao
@@ -76,7 +79,37 @@ export function HomeScreen() {
                             title="Solicitar Nova Lavagem"
                             onPress={lidarComNovoPedido}
                             backgroundColor={colors.primary || colors.iconAndTextSelectColor}
+                            style={{height: 60}}
                         />
+                    </View>
+                </View>
+                <View style={styles.ultimosPedidosContainer}>
+                    <View style={styles.tituloSecaoContainer}>
+                        <Text style={styles.ultimosPedidos}>
+                            Últimos Pedidos
+                        </Text>
+                        <Text style={styles.verTodos}>
+                            Ver todos
+                        </Text>
+                    </View>
+                    <View style={styles.ultimosPedidosLista}>
+                        <CardPedido
+                        icon={<IconeCesto width={24} height={24} fill={colors.backgroundGray}/>}
+                            numeroPedido="10491"
+                            data="20/09/2024"
+                            quantidadeItens="3 itens"
+                            status="Entregue"
+                        />
+                          <CardPedido
+                        icon={<IconeCesto width={24} height={24} fill={colors.backgroundGray}/>}
+                            numeroPedido="10491"
+                            data="20/09/2024"
+                            quantidadeItens="3 itens"
+                            status="Entregue"
+                        />
+                        <Text style={styles.nenhumPedido}>
+                            Você ainda não fez nenhum pedido...
+                        </Text>
                     </View>
                 </View>
 
@@ -99,7 +132,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         backgroundColor: 'rgba(255, 255, 255, 0.1)', // Um fundo branco bem transparente para dar contraste no degradê
         borderRadius: 16,
-        padding: 16,
+        padding: 0,
     },
     tituloSecao: {
         fontSize: 16,
@@ -108,6 +141,40 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     espacadorBotao: {
+        width: '100%'
+    },
+    ultimosPedidosContainer: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginTop: 30,
+        paddingHorizontal: 10
+    },
+    tituloSecaoContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         width: '100%',
+        marginBottom: 10,
+    },
+    ultimosPedidos: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: colors.text,
+    },
+    verTodos: {
+        fontSize: 14,
+        color: colors.textGray || colors.iconAndTextSelectColor,
+    },
+    ultimosPedidosLista: {
+        width: '100%',
+        marginTop: 10,
+        gap: 20
+},
+    nenhumPedido: {
+        fontSize: 14,
+        color: colors.textGray,
+        fontStyle: 'italic',
+        textAlign: 'center',
+        marginTop: 100,
     }
 });

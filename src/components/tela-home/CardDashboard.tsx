@@ -76,8 +76,10 @@ export default function CardDashboard({
                 {/* ========================================== */}
                 {abaAtiva === 'gota' && (
                     <View style={styles.conteudo}>
-                        
-                        <View style={styles.linhaStatus}>
+                        <View style={styles.containerSuperior}>
+
+                            <View style={styles.linhaStatus}>
+
                             <View>
                                 {/* TEXTO DO PEDIDO DENTRO DE UMA VIEW ARREDONDADA */}
                                 <View style={styles.badgePedido}>
@@ -117,6 +119,8 @@ export default function CardDashboard({
                                     { width: `${progresso}%`, backgroundColor: colors.primary || '#0056b3' }
                                 ]} 
                             />
+                        </View>
+
                         </View>
 
                         <View style={styles.linhaRodapeGota}>
@@ -247,8 +251,12 @@ const styles = StyleSheet.create({
     },
     conteudo: {
         width: '100%',
+        gap: 20,
     },
     // --- ESTILOS DA GOTA (PEDIDO) ---
+    containerSuperior: {
+        flexDirection: 'column'
+    },
     linhaStatus: {
         flexDirection: 'row',
         justifyContent: 'space-between',

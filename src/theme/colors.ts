@@ -5,7 +5,7 @@ export const colors = {
   iconAndTextSelectColor: '#21A4FF',   
   background: '#F0F4F8',   
   optinalText: '#82C6FF',     
-  text: '#000000',
+  text: '#1E293B',
   textGray: '#475569',      
   textSecundary: '#7B7B7B',
   textPayCard: '#ABABAB',
@@ -20,6 +20,8 @@ export const colors = {
   secundaryColorAlertText: '#B45309',
   autenticCard: '#f1f6fa',
   iconColorArrow: '#475569',
-  grayIcon: '#6B7280'
+  grayIcon: '#6B7280',
+  backgroundGray: '#E5E7EB',
+  borderGray: '#D1D5DB',
 };
 
