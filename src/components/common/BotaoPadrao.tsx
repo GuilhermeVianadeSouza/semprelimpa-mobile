@@ -1,6 +1,6 @@
 
 import React, { ReactNode } from "react";
-import { Text, StyleSheet, TouchableOpacity, View, StyleProp, ViewStyle} from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, View, StyleProp, ViewStyle } from 'react-native';
 import { colors } from "../../theme/colors";
 
 //Essa é uma forma de criação de um componente em react native: interface é o que é/será a interface do objeto
@@ -32,19 +32,19 @@ export default function BotaoPadrao({
 }: BotaoPadraoPropriedades) {
     return (
         <TouchableOpacity
-            style={[
-                styles.button,
-                { backgroundColor: backgroundColor },
-                borderColor ? { borderWidth: 1, borderColor: borderColor } : null,
-                disabled && styles.disabledButton,
-                style
-            ]}
-            onPress={onPress}
-            disabled={disabled}
+        style={[
+            styles.button,
+            { backgroundColor: backgroundColor},
+            borderColor ? { borderWidth: 1, borderColor: borderColor} : null,
+            disabled && styles.disabledButton,
+            style
+        ]}
+        onPress={onPress}
+        disabled={disabled}
         >
             <View style={styles.content}>
                 {icon}
-                <Text style={[styles.text, { color: textColor }]}>
+                <Text style={[styles.text, {color: textColor}]}>
                     {title}
                 </Text>
             </View>
@@ -73,5 +73,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 8
-    } 
+    }  
 })

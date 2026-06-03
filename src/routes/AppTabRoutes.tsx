@@ -52,7 +52,7 @@ export default function AppTabRoutes() {
 
             <Tab.Screen 
                 name="Perfil" 
-                component={PerfilScreen}
+                component={PerfilScreen} 
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="account-outline" color={color} size={size} />

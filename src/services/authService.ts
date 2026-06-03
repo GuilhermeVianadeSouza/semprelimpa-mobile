@@ -125,6 +125,20 @@ export const efetuarLogout = async (): Promise<void> => {
         console.error("Erro ao efetuar logout:", error);
     }
 };
+export const obterUsuarioLogado = async () => {
+    const token = await obterTokenSalvo();
+
+    if (!token) {
+        throw new Error("Usuário não autenticado");
+    }
+
+    const decoded = jwtDecode<JwtPayload>(token);
+
+    return {
+        usuario_id: decoded.usuario_id,
+        email: decoded.email
+    };
+};
 
 
 // ==========================================
@@ -135,7 +149,7 @@ export const realizarLogin = async (identificacaoPuro: string, senha: string, me
     const endpoint = metodoEscolhido === 'e_mail' ? "Loginemail" : "Logincpf";   
     
     const payload = metodoEscolhido === 'e_mail'
-        ? { e_mail: identificacaoPuro, senha }
+        ? { email: identificacaoPuro, senha }
         : { cpf: identificacaoPuro, senha };
         
     const url = `${BASE_URL}${endpoint}`;
@@ -212,77 +226,3 @@ export const buscarPerfilUsuario = async () => {
 
     return data;
 };
-
-export const atualizarPerfilUsuario = async (dadosAtualizados: any) => {
-
-    const token = await obterTokenSalvo()
-
-    if (!token) {
-        throw new Error("Usuário não autenticado")
-    }
-
-    const decoded = jwtDecode<JwtPayload>(token)
-    const idDoUsuario = decoded.usuario_id
-
-    const url = `${BASE_URL}usuario/${idDoUsuario}`
-
-    const response = await fetch(url, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify(dadosAtualizados)
-    })
-
-    const data = await response.json()
-
-    console.log("STATUS", response.status)
-    console.log("RESPOSTA", data)
-
-    if (!response.ok) {
-        throw new Error(
-            data.mensagemErro || "Erro ao atualizar perfil"
-        )
-    }
-
-    return data
-};
-
-export const atualizarEndereco = async (
-    enderecoId: number,
-    dadosEndereco: any
-) => {
-
-
-    console.log("ENDERECO ID:", enderecoId)
-    console.log("DADOS ENDERECO:", dadosEndereco)
-
-    const token = await obterTokenSalvo()
-if (!enderecoId) {
-    throw new Error("ID do endereço é obrigatório para atualização")
-}
-    const response = await fetch(
-        `${BASE_URL}endereco/${enderecoId}`,
-        {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(dadosEndereco)
-        }
-    )
-
-    const data = await response.json()
-
-    if (!response.ok) {
-        throw new Error(
-            data.message ||
-            data.mensagemErro ||
-            "Erro ao atualizar endereço"
-        )
-    }
-
-    return data
-}
