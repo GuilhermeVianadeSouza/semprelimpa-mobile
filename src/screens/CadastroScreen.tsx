@@ -227,8 +227,7 @@ export default function CadastroScreen() {
                     <BotaoPadrao
                         title={form.etapaAtual === 3 ? textos.botao.finalizar : textos.botao.continuar}
                         onPress={form.etapaAtual === 3 ? lidarComFinalizacao : acoes.avancarEtapa}
-                    >
-                    </BotaoPadrao>
+                    />
             </CardAutenticacao>
         </Background>
     );

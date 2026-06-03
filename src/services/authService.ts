@@ -124,6 +124,20 @@ export const efetuarLogout = async (): Promise<void> => {
         console.error("Erro ao efetuar logout:", error);
     }
 };
+export const obterUsuarioLogado = async () => {
+    const token = await obterTokenSalvo();
+
+    if (!token) {
+        throw new Error("Usuário não autenticado");
+    }
+
+    const decoded = jwtDecode<JwtPayload>(token);
+
+    return {
+        usuario_id: decoded.usuario_id,
+        email: decoded.email
+    };
+};
 
 
 // ==========================================
