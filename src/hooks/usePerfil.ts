@@ -5,11 +5,11 @@ import { buscarPerfilUsuario } from "../services/usuarioService";
 const formatarDataBR = (dataRaw: string | null | undefined): string => {
     if (!dataRaw) return '';
     try {
-        // Se já vier formatada do back "DD/MM/AAAA", não mexe
+        
         if (dataRaw.includes('/')) return dataRaw;
         
-        // Se vier "2001-10-18T02:00:00.000Z"
-        const apenasData = dataRaw.split('T')[0]; // "2001-10-18"
+        
+        const apenasData = dataRaw.split('T')[0];
         const [ano, mes, dia] = apenasData.split('-');
         return `${dia}/${mes}/${ano}`;
     } catch {
@@ -20,6 +20,7 @@ const formatarDataBR = (dataRaw: string | null | undefined): string => {
 export function usePerfil() {
 
     const [usuario, setUsuario] = useState({
+        idEndereco: 0,
         nome: '',
         email: '',
         telefone: '',
@@ -31,7 +32,8 @@ export function usePerfil() {
         estado: '',
         cidade: '',
         complemento: '',
-        numero: ''
+        numero: '',
+        fk_endereco: 0
     })
 
     const [loading, setLoading] = useState(false)
@@ -46,24 +48,27 @@ export function usePerfil() {
     
             if (data && data.items && data.items.Usuario && data.items.Usuario.length > 0) {
                 const dadosBanco = data.items.Usuario[0]; 
+                console.log(JSON.stringify(dadosBanco, null, 2))
     
                 setUsuario({
+                    idEndereco: dadosBanco.endereco_id,
                     nome: dadosBanco.nome || '',
                     email: dadosBanco.e_mail || dadosBanco.email || '',
                     telefone: dadosBanco.telefone || '',
                     cpf: dadosBanco.cpf || '',
                     
-                    // 🛠️ FORMATANDO A DATA NO FRONT PARA GARANTIR:
+                    //  FORMATANDO A DATA NO FRONT PARA GARANTIR:
                     dataNascimento: formatarDataBR(dadosBanco.data_nascimento || dadosBanco.dataNascimento),
                     
-                    // Mapeamento do endereço baseado no que seu DAO devolve
+                    // Mapeamento do endereço baseado no que o DAO devolve
                     cep: dadosBanco.cep || '',
                     rua: dadosBanco.logradouro || dadosBanco.rua || '',
                     bairro: dadosBanco.bairro || '',
                     estado: dadosBanco.uf || dadosBanco.estado || '',
                     cidade: dadosBanco.cidade || '',
                     complemento: dadosBanco.complemento || '',
-                    numero: dadosBanco.numero || ''
+                    numero: dadosBanco.numero || '',
+                    fk_endereco: dadosBanco.fk_endereco || 0
                 });
     
                 console.log("ESTADO DO USUÁRIO ATUALIZADO COM SUCESSO!");

@@ -11,6 +11,7 @@ interface JwtPayload {
     email: string;
     exp: number;
 }
+
 export async function esquecerSenha(email: string) {
     const response = await fetch(
       'http://localhost:5000/v1/semprelimpa/esquecisenha',

@@ -10,6 +10,7 @@ import ResetarSenhaScreen from "../screens/ResetarSenhaScreen";
 import AppTabRoutes from "./AppTabRoutes";
 
 
+
 const Stack = createNativeStackNavigator()
 
 export default function AutentRoutes(){

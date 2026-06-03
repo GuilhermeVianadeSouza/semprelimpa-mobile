@@ -9,6 +9,7 @@ interface JwtPayload {
     exp: number;
 }
 
+
 export const buscarPerfilUsuario = async () => {
     const token = await obterTokenSalvo();
 

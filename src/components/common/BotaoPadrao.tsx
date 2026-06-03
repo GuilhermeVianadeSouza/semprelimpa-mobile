@@ -6,7 +6,7 @@ import { colors } from "../../theme/colors";
 //Essa é uma forma de criação de um componente em react native: interface é o que é/será a interface do objeto
 
 //Esse é o padrão ao se criar esse componente: uma string, uma funcao de ação ao clicar no botao, e opcionalmente um disable
-interface BotaoPadraoPropriedades{
+interface BotaoPadraoPropriedades {
     title: string;
     onPress: () => void;
     disabled?: boolean;
@@ -30,7 +30,7 @@ export default function BotaoPadrao({
     icon,
     style
 }: BotaoPadraoPropriedades) {
-    return(
+    return (
         <TouchableOpacity
         style={[
             styles.button,
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%'
     },
-    disabledButton:{
+    disabledButton: {
         opacity: 0.7
     },
     text: {
