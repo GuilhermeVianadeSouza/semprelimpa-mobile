@@ -16,6 +16,9 @@ import { usePerfil } from "../hooks/usePerfil";
 import HeaderPerfil from "../components/tela-perfil/HeaderPerfil";
 import { useNavigation } from "@react-navigation/native";
 import BotaoPadrao from "../components/common/BotaoPadrao";
+import { efetuarLogout } from "../services/authService";
+import { atualizarPerfilUsuario } from "../services/authService";
+import { atualizarEndereco } from "../services/authService";
 
 import {
   validarEmail,
@@ -305,12 +308,37 @@ export default function PerfilScreen() {
 
         </View>
 
+        {!modoEdicao && (
+          <View style={styles.botaoLogout}>
+            <BotaoPadrao
+              title="LogOut"
+              onPress={() => {
+                try {
+                  efetuarLogout()
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Welcome' }],
+                  })
+                } catch (error) {
+                  console.error("Erro ao efetuar logout:", error)
+                }
+              }}
+              style={{ borderColor: 'transparent', width: 200, height: 55 }}
+              icon={
+                <Image
+                  source={require("../assets/log-out.png")}
+                  style={{ width: 24, height: 24, tintColor: '#fff' }}
+                />
+              }
+            />
+          </View>
+        )}
       </ScrollView>
 
       {
         modoEdicao && (
 
-          <View style={styles.div}>
+          <View style={styles.botoes}>
 
             {
               mensagemErro ? (
@@ -319,66 +347,71 @@ export default function PerfilScreen() {
                 </Text>
               ) : null
             }
+            <View style={{}}>
+              <BotaoPadrao
+                title="Salvar Alterações"
+                onPress={async () => {
 
-            <BotaoPadrao
-              title="Salvar Alterações"
-              onPress={async () => {
+                  setMensagemErro("")
 
-                setMensagemErro("")
+                  if (!validarEmail(email)) {
+                    setMensagemErro("E-mail inválido")
+                    return
+                  }
 
-                if (!validarEmail(email)) {
-                  setMensagemErro("E-mail inválido")
-                  return
-                }
+                  if (!validarTelefone(telefone)) {
+                    setMensagemErro("Telefone inválido")
+                    return
+                  }
 
-                if (!validarTelefone(telefone)) {
-                  setMensagemErro("Telefone inválido")
-                  return
-                }
+                  if (!validarMaiorIdade(dataNascimento)) {
+                    setMensagemErro("É necessário ser maior de idade")
+                    return
+                  }
 
-                if (!validarMaiorIdade(dataNascimento)) {
-                  setMensagemErro("É necessário ser maior de idade")
-                  return
-                }
+                  try {
 
-                console.log({
-                  nome,
-                  email,
-                  telefone,
-                  dataNascimento,
-                  cep,
-                  rua,
-                  bairro,
-                  cidade,
-                  estado,
-                  complemento,
-                  numero
-                })
+                    const [dia, mes, ano] = dataNascimento.split('/')
 
-                // CHAMAR API AQUI
+                    const dataFormatada = `${ano}-${mes}-${dia}`
 
-                setModoEdicao(false)
-              }}
-              style={{ width: 200, height: 55 }}
-            />
+                    // Atualiza usuário
+                    await atualizarPerfilUsuario({
+                      nome,
+                      e_mail: email,
+                      telefone,
+                      cpf: form.usuario.cpf,
+                      data_nascimento: dataFormatada
+                    })
+                    console.log(form.usuario)
+                    // Atualiza endereço
+                    await atualizarEndereco(
+                      form.usuario.idEndereco,
+                      {
+                      cep,
+                      logradouro: rua,
+                      bairro,
+                      uf: estado,
+                      cidade,
+                      complemento,
+                      numero
+                    })
 
-            <BotaoPadrao
-              title=""
-              onPress={() => {
-                // Lógica de logout aqui
-                navigation.navigate("Login")
-              }}
-              style={{backgroundColor: 'transparent', borderColor: 'transparent', width: 55, height: 55}}
-              icon={
-                <Image
-                  source={require("../assets/log-out.png")}
-                  style={{ width: 24, height: 24 }}
-                />
-              }
+                    setModoEdicao(false)
 
+                  } catch (error: any) {
 
-            />
+                    setMensagemErro(
+                      error.message || "Erro ao atualizar perfil"
+                    )
 
+                    console.error(error)
+                  }
+                }}
+
+                style={{ width: 200, height: 55 }}
+              />
+            </View>
 
           </View>
         )
@@ -469,12 +502,13 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 
-  div: {
+  botoes: {
     display: 'flex',
     flexDirection: 'row',
     marginTop: 8,
     marginBottom: 5,
-    justifyContent: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   erro: {
@@ -484,8 +518,13 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   botaoLogout: {
-    
-
+    flexGrow: 1,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    width: 200,
+    height: 55,
+    marginBottom: 5
   },
 
   textoLogout: {

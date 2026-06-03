@@ -20,6 +20,7 @@ const formatarDataBR = (dataRaw: string | null | undefined): string => {
 export function usePerfil() {
 
     const [usuario, setUsuario] = useState({
+        idEndereco: 0,
         nome: '',
         email: '',
         telefone: '',
@@ -31,7 +32,8 @@ export function usePerfil() {
         estado: '',
         cidade: '',
         complemento: '',
-        numero: ''
+        numero: '',
+        fk_endereco: 0
     })
 
     const [loading, setLoading] = useState(false)
@@ -46,8 +48,10 @@ export function usePerfil() {
     
             if (data && data.items && data.items.Usuario && data.items.Usuario.length > 0) {
                 const dadosBanco = data.items.Usuario[0]; 
+                console.log(JSON.stringify(dadosBanco, null, 2))
     
                 setUsuario({
+                    idEndereco: dadosBanco.endereco_id,
                     nome: dadosBanco.nome || '',
                     email: dadosBanco.e_mail || dadosBanco.email || '',
                     telefone: dadosBanco.telefone || '',
@@ -63,7 +67,8 @@ export function usePerfil() {
                     estado: dadosBanco.uf || dadosBanco.estado || '',
                     cidade: dadosBanco.cidade || '',
                     complemento: dadosBanco.complemento || '',
-                    numero: dadosBanco.numero || ''
+                    numero: dadosBanco.numero || '',
+                    fk_endereco: dadosBanco.fk_endereco || 0
                 });
     
                 console.log("ESTADO DO USUÁRIO ATUALIZADO COM SUCESSO!");
