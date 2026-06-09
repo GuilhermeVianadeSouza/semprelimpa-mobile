@@ -10,20 +10,31 @@ import { useLogin } from "../hooks/useLogin";
 import { textos } from "../utils/strings";
 import { colors } from "../theme/colors";
 
-export default function LoginScreen() {
-    const route = useRoute<any>()
-    const navigation = useNavigation<any>()
+import { useAuth } from "../routes/AuthContext";
 
-    const metodoRecebido = route.params?.metodoSelecionado || 'e_mail'
+export default function LoginScreen() {
+
+    const route = useRoute<any>();
+    const navigation = useNavigation<any>();
+
+    const { login } = useAuth();
+
+    const metodoRecebido =
+        route.params?.metodoSelecionado || 'e_mail';
+
     const aoLogarComSucesso = () => {
-        navigation.navigate('AreaLogada')
-    }
+        login();
+    };
 
     const lidarComBotaoVoltar = () => {
-        navigation.goBack()
-    }
+        navigation.goBack();
+    };
 
-    const { form, acoes } = useLogin(metodoRecebido, aoLogarComSucesso)
+    const { form, acoes } = useLogin(
+        metodoRecebido,
+        aoLogarComSucesso
+    );
+
     return (
         <Background>
             <CabecalhoFixo
@@ -33,8 +44,10 @@ export default function LoginScreen() {
 
             <CardAutenticacao
                 titulo={textos.cardAuten.login}
-                onBack={lidarComBotaoVoltar}>
+                onBack={lidarComBotaoVoltar}
+            >
                 <View style={styles.formConteudo}>
+
                     <Text style={styles.textoEsqueciSenha}>
                         Insira o seu {metodoRecebido} e senha cadastrados para acessar sua conta
                     </Text>
@@ -45,8 +58,8 @@ export default function LoginScreen() {
                         valor={form.identificacao}
                         tipo={form.metodoEscolhido}
                         aoMudarTexto={(mascarado, puro) => {
-                            form.setIdentificacao(mascarado),
-                                form.setIdentificacaoPuro(puro)
+                            form.setIdentificacao(mascarado);
+                            form.setIdentificacaoPuro(puro);
                         }}
                     />
 
@@ -55,10 +68,15 @@ export default function LoginScreen() {
                         placeholder="......."
                         valor={form.senha}
                         tipo="senha"
-                        aoMudarTexto={(texto) => form.setSenha(texto)}
+                        aoMudarTexto={(texto) =>
+                            form.setSenha(texto)
+                        }
                     />
+
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('RecuperacaoSenha')}
+                        onPress={() =>
+                            navigation.navigate('RecuperacaoSenha')
+                        }
                     >
                         <Text>Esqueci minha senha</Text>
                     </TouchableOpacity>
@@ -67,9 +85,12 @@ export default function LoginScreen() {
 
                     {form.mensagemErro && (
                         <View style={styles.caixaErro}>
-                            <Text style={styles.textoErro}>{form.mensagemErro}</Text>
+                            <Text style={styles.textoErro}>
+                                {form.mensagemErro}
+                            </Text>
                         </View>
                     )}
+
                     <BotaoPadrao
                         title="Continuar"
                         onPress={acoes.lidarComLogin}
@@ -78,7 +99,7 @@ export default function LoginScreen() {
                 </View>
             </CardAutenticacao>
         </Background>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -110,4 +131,4 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '500',
     }
-})
+});

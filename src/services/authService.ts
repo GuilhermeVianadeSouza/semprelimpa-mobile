@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 import { Platform } from 'react-native';
 
 // Com o 'adb reverse tcp:5000 tcp:5000' ativo, use localhost tranquilamente
-const BASE_URL = "http://localhost:5000/v1/SempreLimpa/";
+const BASE_URL = "http://localhost:5000/v1/semprelimpa/";
 const TOKEN_KEY = 'usuario_logado_token';
 
 interface JwtPayload {
@@ -32,6 +32,7 @@ export async function esquecerSenha(email: string) {
   
     return data
   }
+  
   
   export async function resetarSenha(
     token: string,
@@ -96,11 +97,19 @@ export const obterTokenSalvo = async (): Promise<string | null> => {
 export const verificarSeEstaLogado = async (): Promise<boolean> => {
     try {
         const token = await obterTokenSalvo();
-        
+
+        console.log("TOKEN ENCONTRADO:", token);
+
         if (!token) return false;
-        
+
         const decoded = jwtDecode<JwtPayload>(token);
+
+        console.log("JWT:", decoded);
+
         const tempoAtual = Date.now() / 1000;
+
+        console.log("EXP:", decoded.exp);
+        console.log("AGORA:", tempoAtual);
 
         if (decoded.exp < tempoAtual) {
             console.warn("Sessão expirada.");
@@ -110,6 +119,7 @@ export const verificarSeEstaLogado = async (): Promise<boolean> => {
 
         return true;
     } catch (error) {
+        console.log(error);
         return false;
     }
 };

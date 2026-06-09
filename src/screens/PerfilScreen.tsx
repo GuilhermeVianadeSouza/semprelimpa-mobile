@@ -19,6 +19,7 @@ import BotaoPadrao from "../components/common/BotaoPadrao";
 import { efetuarLogout } from "../services/authService";
 import { atualizarPerfilUsuario } from "../services/authService";
 import { atualizarEndereco } from "../services/authService";
+import { useAuth } from "../routes/AuthContext";
 
 import {
   validarEmail,
@@ -29,6 +30,7 @@ import {
 import { buscarCepViaCep } from "../services/viaCepService";
 
 export default function PerfilScreen() {
+  const { logout } = useAuth();
 
   const navigation = useNavigation<any>()
 
@@ -312,15 +314,11 @@ export default function PerfilScreen() {
           <View style={styles.botaoLogout}>
             <BotaoPadrao
               title="LogOut"
-              onPress={() => {
+              onPress={async() => {
                 try {
-                  efetuarLogout()
-                  navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'Welcome' }],
-                  })
+                  await logout();
                 } catch (error) {
-                  console.error("Erro ao efetuar logout:", error)
+                  console.error("Erro ao efetuar logout", error)
                 }
               }}
               style={{ borderColor: 'transparent', width: 200, height: 55 }}
