@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors } from '../theme/colors'
 import { HomeScreen } from '../screens/HomeScreen';
 import PerfilScreen from '../screens/PerfilScreen';
+import LavanderiasScreen from "../screens/LavanderiaScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +20,7 @@ export default function AppTabRoutes() {
                 tabBarInactiveTintColor: '#A0A0A0',
             }}
         >
-            {/* O nome que você coloca no 'name' é o que aparece escrito embaixo do ícone */}
+            {/* Cada Tab.Screen representa uma aba na barra de navegação inferior */}
             <Tab.Screen 
                 name="Início" 
                 component={HomeScreen} 
@@ -32,10 +33,13 @@ export default function AppTabRoutes() {
 
             <Tab.Screen 
                 name="Lavanderias" 
-                component={Placeholder} 
+                component={LavanderiasScreen} 
                 options={{
                     tabBarIcon: ({ color, size }) => (
-                        <MaterialCommunityIcons name="washing-machine" color={color} size={size} />
+                        <MaterialCommunityIcons 
+                        name="washing-machine" 
+                        color={color} 
+                        size={size} />
                     )
                 }}
             />
