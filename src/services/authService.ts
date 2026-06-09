@@ -226,3 +226,70 @@ export const buscarPerfilUsuario = async () => {
 
     return data;
 };
+
+export const atualizarEndereco = async (enderecoId: number, dadosEndereco: any) => {
+    if (!enderecoId) {
+        throw new Error("ID do endereço inválido")
+    }
+
+    const token = await obterTokenSalvo()
+
+    if (!token) {
+        throw new Error("Token não encontrado")
+    }
+
+    const response = await fetch(`${BASE_URL}endereco/${enderecoId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(dadosEndereco)
+    })
+
+    const data = await response.json()
+
+    console.log("STATUS:", response.status)
+    console.log("RESPOSTA:", data)
+
+    if (!response.ok) {
+        throw new Error(data.message || data.mensagemErro || "Erro ao atualizar endereço")
+    }
+
+    return data
+};
+
+export const atualizarPerfilUsuario = async (dadosPerfil: any) => {
+    const token = await obterTokenSalvo()
+
+    if (!token) {
+        throw new Error("Token não encontrado")
+    }
+
+    const decoded = jwtDecode<JwtPayload>(token)
+    const idDoUsuario = decoded.usuario_id
+
+    if (!idDoUsuario) {
+        throw new Error("ID do usuário não encontrado no token")
+    }
+
+    const response = await fetch(`${BASE_URL}usuario/${idDoUsuario}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(dadosPerfil)
+    })
+
+    const data = await response.json()
+
+    console.log("STATUS:", response.status)
+    console.log("RESPOSTA:", data)
+
+    if (!response.ok) {
+        throw new Error(data.message || data.mensagemErro || "Erro ao atualizar perfil")
+    }
+
+    return data
+}
