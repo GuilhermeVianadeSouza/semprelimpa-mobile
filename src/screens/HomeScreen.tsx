@@ -68,12 +68,18 @@ export function HomeScreen() {
         console.log("Iniciando fluxo de novo pedido...");
         // navigation.navigate('CriarPedido');
     }
-    const ultimosPedidos = dados
-        .filter(
-            pedido => pedido.status_pedido !== 'EM_ANDAMENTO'
-        )
-        .slice(0, 3);
+   const ultimosPedidos = [...dados]
+    .filter(
+        pedido => pedido.pedido_id !== pedidoAtual?.pedido_id
+    )
+    .sort(
+        (a, b) => b.pedido_id - a.pedido_id
+    )
+    .slice(0, 3);
 
+    function formatarNumeroPedido(id: number) {
+        return `${String(id+7).padStart(3, '0')}`;
+    }
     return (
         <Background>
             {/* 1. TOPO DO APLICATIVO */}
@@ -94,7 +100,7 @@ export function HomeScreen() {
                 {/* Passamos dados mocados idênticos ao figma para validar a estrutura visual */}
                 {pedidoAtual ? (
                     <CardDashboard
-                        numeroPedido={String(pedidoAtual.pedido_id)}
+                        numeroPedido={formatarNumeroPedido(pedidoAtual.pedido_id)}
                         statusTexto="Em processamento"
                         progresso={50}
                         mensagem="Sua roupa está sendo lavada."
@@ -156,7 +162,7 @@ export function HomeScreen() {
                                             fill={colors.backgroundGray}
                                         />
                                     }
-                                    numeroPedido={String(pedido.pedido_id)}
+                                    numeroPedido={formatarNumeroPedido(pedido.pedido_id)}
                                     data={new Date(
                                         pedido.data_pedido
                                     ).toLocaleDateString('pt-BR')}

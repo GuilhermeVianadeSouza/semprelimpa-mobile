@@ -5,7 +5,7 @@ export async function buscarDadosHome() {
     const usuario = await obterUsuarioLogado();
 
     const response = await api.get(
-        `/usuario/${usuario.usuario_id}`
+        `/home/${usuario.usuario_id}`
     );
 
     return response.data;
