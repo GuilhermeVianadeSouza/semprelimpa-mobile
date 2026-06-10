@@ -21,8 +21,12 @@ import { buscarPerfilUsuario } from '../services/authService';
 export function HomeScreen() {
     const navigation = useNavigation<any>();
 
-    const { dados, carregando, erro } = useHome();
-    console.log("Dados da HomeScreen:", dados);
+    const {
+    dados,
+    usuario,
+    carregando,
+    erro
+} = useHome();
 
     const pedidoAtual = dados.find(
         pedido => pedido.status_pedido === 'EM_ANDAMENTO'
@@ -74,7 +78,7 @@ export function HomeScreen() {
         <Background>
             {/* 1. TOPO DO APLICATIVO */}
             <HeaderHome
-                nomeUsuario="Guilherme"
+                nomeUsuario={usuario?.nome?.split(' ')[0] || "Usuário"}
                 urlFotoPerfil="" // Deixe vazio para testar a imagem padrão circular
                 onPressNotificacao={lidarComNotificacao}
             />
