@@ -5,6 +5,7 @@ import { colors } from '../theme/colors'
 import { HomeScreen } from '../screens/HomeScreen';
 import PerfilScreen from '../screens/PerfilScreen';
 import LavanderiasScreen from "../screens/LavanderiaScreen";
+import { PedidosScreen } from '../screens/PedidosScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -46,7 +47,7 @@ export default function AppTabRoutes() {
 
             <Tab.Screen 
                 name="Pedidos" 
-                component={Placeholder} 
+                component={PedidosScreen} 
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="receipt" color={color} size={size} />
