@@ -1,11 +1,11 @@
 import api from "./api";
 import { obterUsuarioLogado } from "./authService";
 
-export async function buscarDadosHome() {
+export async function buscarPedidos() {
     const usuario = await obterUsuarioLogado();
 
     const response = await api.get(
-        `/home/${usuario.usuario_id}`
+        `/pedido/`
     );
 
     return response.data;
